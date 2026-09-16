@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>每日速递</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
+<style>
+:root{
+  --bg:#f6f5f2; --card:#fff; --text:#1f1f1f; --sub:#6b6b6b; --line:#e6e4df;
+  --accent:#2f6fde; --accent-bg:#e8f0fd;
+  --hot-bg:#fff1e6; --hot-line:#f5c7a3;
+  --explain-bg:#eaf6ee; --explain-line:#b9dfc5;
+  --opinion-bg:#fdf6dd; --opinion-line:#ecd98f;
+  --code-bg:#f1f0ec; --shadow:0 1px 3px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#16171a; --card:#202226; --text:#e8e8e6; --sub:#9a9a98; --line:#33353a;
+    --accent:#7aa7f5; --accent-bg:#26324a;
+    --hot-bg:#3a2a1e; --hot-line:#6b4a31;
+    --explain-bg:#1f3327; --explain-line:#355a42;
+    --opinion-bg:#37321c; --opinion-line:#6a5d2b;
+    --code-bg:#15161a; --shadow:none;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none;word-break:break-all}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 48px}
+
+header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{max-width:760px;margin:0 auto;padding:10px 16px 0}
+h1{font-size:20px;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.tabs{display:flex;gap:4px}
+.tab{flex:1;border:0;background:none;color:var(--sub);font-size:15px;padding:8px 0 10px;
+  border-bottom:3px solid transparent;cursor:pointer}
+.tab.on{color:var(--text);font-weight:600;border-bottom-color:var(--accent)}
+
+.datebar{display:flex;align-items:center;gap:8px;margin:14px 0}
+.datebar button{border:1px solid var(--line);background:var(--card);color:var(--text);
+  border-radius:8px;height:36px;min-width:44px;font-size:15px;cursor:pointer}
+.datebar button:disabled{opacity:.35;cursor:default}
+.datebar select{flex:1;height:36px;border:1px solid var(--line);border-radius:8px;
+  background:var(--card);color:var(--text);font-size:15px;padding:0 8px}
+
+.box{border-radius:12px;padding:12px 14px;margin:12px 0;border:1px solid}
+.hot{background:var(--hot-bg);border-color:var(--hot-line)}
+.explain{background:var(--explain-bg);border-color:var(--explain-line)}
+.opinion{background:var(--opinion-bg);border-color:var(--opinion-line)}
+.box b.lead{display:block;margin-bottom:2px}
+
+.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 0;margin:12px 0;box-shadow:var(--shadow)}
+.toc a{display:flex;gap:8px;padding:8px 14px;color:var(--text);line-height:1.5}
+.toc a:active{background:var(--accent-bg)}
+.toc .n{color:var(--sub);min-width:1.4em}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0;
+  box-shadow:var(--shadow);scroll-margin-top:120px}
+.card h2{font-size:18px;line-height:1.5;margin:0 0 6px}
+.meta{color:var(--sub);font-size:14px;margin-bottom:6px}
+.meta code{font-size:13px}
+.card p{margin:8px 0}
+code{background:var(--code-bg);border-radius:4px;padding:1px 5px;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+.install{border-top:1px dashed var(--line);margin-top:12px;padding-top:8px}
+.install h3{font-size:15px;margin:8px 0}
+.step{margin:8px 0}
+.code{position:relative;margin:6px 0}
+pre{background:var(--code-bg);border-radius:8px;padding:10px 64px 10px 12px;margin:0;
+  font:13.5px/1.55 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;word-break:break-all}
+.copy{position:absolute;top:6px;right:6px;border:1px solid var(--line);background:var(--card);
+  color:var(--sub);font-size:12px;border-radius:6px;padding:2px 8px;cursor:pointer;font-family:inherit}
+.sources{font-size:14px;color:var(--sub);margin-top:10px}
+.sources a{margin-right:10px;display:inline-block}
+.foot{color:var(--sub);font-size:13px;text-align:center;margin-top:24px}
+.empty{color:var(--sub);text-align:center;padding:48px 0}
+.top{position:fixed;right:16px;bottom:20px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
+  background:var(--card);color:var(--text);font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,.15);display:none;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1><span id="icon">📰</span>每日速递</h1>
+    <div class="tabs">
+      <button class="tab" data-t="news">📰 AI 资讯</button>
+      <button class="tab" data-t="github">🐙 GitHub 热门</button>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+  <div class="datebar">
+    <button id="prev" aria-label="前一天">‹</button>
+    <select id="dates" aria-label="选择日期"></select>
+    <button id="next" aria-label="后一天">›</button>
+  </div>
+  <div id="view"><div class="empty">加载中…</div></div>
+</main>
+<button class="top" id="top" aria-label="回到顶部">↑</button>
+
+<script>
+window.DAILY_INDEX = {};
+window.DAILY_DATA = {};
+
+const TYPES = {
+  news:   { icon: '📰', name: 'AI 资讯' },
+  github: { icon: '🐙', name: 'GitHub 热门' }
+};
+// GitHub Pages 缓存 10 分钟，索引按小时加版本号，避免早上更新了还看到旧列表
+const VER = new Date().toISOString().slice(0, 13).replace(/\D/g, '');
+let cur = { type: 'news', date: null };
+
+function loadScript(src) {
+  return new Promise((ok, fail) => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = ok;
+    s.onerror = () => fail(new Error('加载失败：' + src));
+    document.head.appendChild(s);
+  });
+}
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// 只支持三种行内格式：`代码`、**加粗**、[文字](链接)
+function inline(s) {
+  const parts = String(s ?? '').split(/(`[^`]+`)/);
+  return parts.map(p => {
+    if (/^`[^`]+`$/.test(p)) return '<code>' + esc(p.slice(1, -1)) + '</code>';
+    return esc(p)
+      .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  }).join('');
+}
+
+function paras(s) {
+  return String(s ?? '').split(/\n+/).filter(Boolean).map(p => '<p>' + inline(p) + '</p>').join('');
+}
+
+function box(cls, icon, lead, text) {
+  if (!text) return '';
+  return `<div class="box ${cls}"><b class="lead">${icon} ${lead}</b>${inline(text)}</div>`;
+}
+
+function codeBlock(code) {
+  return `<div class="code"><button class="copy">复制</button><pre>${esc(code)}</pre></div>`;
+}
+
+function renderNewsItem(it, i) {
+  const src = (it.sources || []).map(x => `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)} ↗</a>`).join('');
+  return `<article class="card" id="item-${i}">
+    <h2>${esc(it.emoji || '')} ${i + 1}. ${inline(it.title)}</h2>
+    ${paras(it.body)}
+    ${box('explain', '📘', '看不懂？先补点背景', it.explain)}
+    ${box('opinion', '💡', '我的看法', it.opinion)}
+    ${src ? `<div class="sources">🔗 来源：${src}</div>` : ''}
+  </article>`;
+}
+
+function renderGithubItem(it, i) {
+  const meta = [
+    it.lang ? `<code>${esc(it.lang)}</code>` : '',
+    it.stars ? `⭐ ${esc(it.stars)}` : '',
+    it.today ? `今日 +${esc(it.today)}` : ''
+  ].filter(Boolean).join(' · ');
+  const install = (it.install || []).map(sec => `
+    <div class="install">
+      <h3>🧰 ${inline(sec.title)}</h3>
+      ${(sec.steps || []).map((st, k) => `<div class="step">
+        <div><b>${'①②③④⑤⑥⑦⑧⑨⑩'[k] || (k + 1) + '.'}</b> ${inline(st.text)}</div>
+        ${st.code ? codeBlock(st.code) : ''}
+        ${st.after ? '<div>' + inline(st.after) + '</div>' : ''}
+      </div>`).join('')}
+      ${sec.done ? `<div class="step">✅ <b>装好的标志</b>：${inline(sec.done)}</div>` : ''}
+    </div>`).join('');
+  const url = it.url || ('https://github.com/' + it.repo);
+  return `<article class="card" id="item-${i}">
+    <h2>${esc(it.emoji || '')} ${i + 1}. ${esc(it.repo)}：${inline(it.title)}</h2>
+    ${meta ? `<div class="meta">${meta}</div>` : ''}
+    ${paras(it.body)}
+    ${box('explain', '📘', '看不懂？先补点背景', it.explain)}
+    ${box('opinion', '💡', '我的看法', it.opinion)}
+    ${install}
+    <div class="sources">🔗 <a href="${esc(url)}" target="_blank" rel="noopener">GitHub 仓库 ↗</a></div>
+  </article>`;
+}
+
+function renderDay(d) {
+  const items = d.items || [];
+  const isGh = cur.type === 'github';
+  const toc = items.map((it, i) => `<a href="#" data-i="${i}"><span class="n">${esc(it.emoji || '')}</span><span>${isGh ? esc(it.repo) + '：' : ''}${inline(it.title)}</span></a>`).join('');
+  return `
+    ${box('hot', '🔥', '今日看点', d.highlight)}
+    <nav class="toc">${toc}</nav>
+    ${items.map(isGh ? renderGithubItem : renderNewsItem).join('')}
+    <div class="foot">${esc(d.note || (isGh
+      ? '由 AI 根据 GitHub 热门榜自动整理，「背景」和「看法」是 AI 的解读；星数为抓取时的数据。安装前先看项目 README，别在不了解的程序里填 API key 或私钥。'
+      : '由 AI 根据公开报道自动整理，「背景」和「看法」是 AI 的解读，不是新闻原文；数字以原文为准。'))}</div>`;
+}
+
+async function show(type, date, push) {
+  cur.type = TYPES[type] ? type : 'news';
+  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('on', b.dataset.t === cur.type));
+  document.getElementById('icon').textContent = TYPES[cur.type].icon;
+  const view = document.getElementById('view');
+  const list = DAILY_INDEX[cur.type] || [];
+  if (!list.length) { view.innerHTML = '<div class="empty">还没有内容</div>'; return; }
+  cur.date = list.includes(date) ? date : list[0];
+
+  const sel = document.getElementById('dates');
+  sel.innerHTML = list.map(x => `<option value="${x}">${x}${x === list[0] ? '（最新）' : ''}</option>`).join('');
+  sel.value = cur.date;
+  const idx = list.indexOf(cur.date);
+  document.getElementById('prev').disabled = idx >= list.length - 1;
+  document.getElementById('next').disabled = idx <= 0;
+
+  const hash = `#${cur.type}/${cur.date}`;
+  if (push && location.hash !== hash) history.pushState(null, '', hash);
+  document.title = `${cur.date} ${TYPES[cur.type].name} · 每日速递`;
+
+  const key = `${cur.type}/${cur.date}`;
+  if (!DAILY_DATA[key]) {
+    view.innerHTML = '<div class="empty">加载中…</div>';
+    try { await loadScript(`data/${key}.js`); }
+    catch (e) { view.innerHTML = `<div class="empty">${esc(e.message)}</div>`; return; }
+  }
+  if (`${cur.type}/${cur.date}` !== key) return; // 加载期间又切走了
+  view.innerHTML = renderDay(DAILY_DATA[key]);
+  window.scrollTo(0, 0);
+}
+
+function fromHash() {
+  const [t, d] = location.hash.slice(1).split('/');
+  return [t || 'news', d];
+}
+
+document.querySelectorAll('.tab').forEach(b => b.onclick = () => show(b.dataset.t, null, true));
+document.getElementById('dates').onchange = e => show(cur.type, e.target.value, true);
+document.getElementById('prev').onclick = () => { const l = DAILY_INDEX[cur.type]; show(cur.type, l[l.indexOf(cur.date) + 1], true); };
+document.getElementById('next').onclick = () => { const l = DAILY_INDEX[cur.type]; show(cur.type, l[l.indexOf(cur.date) - 1], true); };
+window.onpopstate = () => show(...fromHash(), false);
+
+document.getElementById('view').addEventListener('click', e => {
+  const a = e.target.closest('.toc a');
+  if (a) {
+    e.preventDefault();
+    document.getElementById('item-' + a.dataset.i).scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+  const btn = e.target.closest('.copy');
+  if (btn) {
+    const text = btn.nextElementSibling.textContent;
+    const done = () => { btn.textContent = '已复制'; setTimeout(() => btn.textContent = '复制', 1500); };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+    else fallbackCopy(text, done);
+  }
+});
+
+function fallbackCopy(text, done) {
+  const t = document.createElement('textarea');
+  t.value = text;
+  document.body.appendChild(t);
+  t.select();
+  try { document.execCommand('copy'); done(); } catch (e) {}
+  t.remove();
+}
+
+const topBtn = document.getElementById('top');
+window.addEventListener('scroll', () => topBtn.style.display = scrollY > 600 ? 'block' : 'none', { passive: true });
+topBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+Promise.allSettled(Object.keys(TYPES).map(t => loadScript(`data/${t}/index.js?v=${VER}`)))
+  .then(() => show(...fromHash(), false));
+</script>
+</body>
+</html>
