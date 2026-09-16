@@ -165,11 +165,13 @@ function renderGithubItem(it, i) {
   const meta = [
     it.lang ? `<code>${esc(it.lang)}</code>` : '',
     it.stars ? `⭐ ${esc(it.stars)}` : '',
-    it.today ? `今日 +${esc(it.today)}` : ''
+    it.today ? `今日 +${esc(it.today)}` : '',
+    it.week ? `本周 +${esc(it.week)}` : ''
   ].filter(Boolean).join(' · ');
   const install = (it.install || []).map(sec => `
     <div class="install">
       <h3>🧰 ${inline(sec.title)}</h3>
+      ${sec.intro ? `<div class="step">${inline(sec.intro)}</div>` : ''}
       ${(sec.steps || []).map((st, k) => `<div class="step">
         <div><b>${'①②③④⑤⑥⑦⑧⑨⑩'[k] || (k + 1) + '.'}</b> ${inline(st.text)}</div>
         ${st.code ? codeBlock(st.code) : ''}
