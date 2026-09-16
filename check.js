@@ -18,8 +18,11 @@ const RULES = {
       const at = `第 ${i + 1} 条`;
       need(str(it.title), f, `${at} 缺 title`);
       need(str(it.body), f, `${at} 缺 body`);
-      need(str(it.explain), f, `${at} 缺 explain`);
-      need(str(it.opinion), f, `${at} 缺 opinion`);
+      // legacy：09-05 第一天的旧格式没有 explain/opinion，只为那一天放行
+      if (!(d.legacy && d.date === '2026-09-05')) {
+        need(str(it.explain), f, `${at} 缺 explain`);
+        need(str(it.opinion), f, `${at} 缺 opinion`);
+      }
       need(Array.isArray(it.sources) && it.sources.length > 0, f, `${at} 缺 sources`);
       (it.sources || []).forEach(s => need(str(s.name) && /^https?:\/\//.test(s.url || ''), f, `${at} 的来源格式不对：${JSON.stringify(s)}`));
     });
