@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content">
 <title>每日速递</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
 <style>
@@ -13,6 +13,7 @@
   --explain-bg:#eaf6ee; --explain-line:#b9dfc5;
   --opinion-bg:#fdf6dd; --opinion-line:#ecd98f;
   --code-bg:#f1f0ec; --shadow:0 1px 3px rgba(0,0,0,.06);
+  --me-bg:#2f6fde; --me-text:#fff; --on-accent:#fff; --err-bg:#fdecec; --err-line:#f0b4b4;
 }
 @media (prefers-color-scheme: dark){
   :root{
@@ -22,6 +23,7 @@
     --explain-bg:#1f3327; --explain-line:#355a42;
     --opinion-bg:#37321c; --opinion-line:#6a5d2b;
     --code-bg:#15161a; --shadow:none;
+    --me-bg:#34558f; --me-text:#f1f4fa; --on-accent:#0e1a30; --err-bg:#3a2224; --err-line:#6e3a3e;
   }
 }
 *{box-sizing:border-box}
@@ -29,7 +31,7 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);
   font:16px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
 a{color:var(--accent);text-decoration:none;word-break:break-all}
-.wrap{max-width:760px;margin:0 auto;padding:0 16px 48px}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 90px}
 
 header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
 .bar{max-width:760px;margin:0 auto;padding:10px 16px 0}
@@ -76,8 +78,93 @@ pre{background:var(--code-bg);border-radius:8px;padding:10px 64px 10px 12px;marg
 .sources a{margin-right:10px;display:inline-block}
 .foot{color:var(--sub);font-size:13px;text-align:center;margin-top:24px}
 .empty{color:var(--sub);text-align:center;padding:48px 0}
-.top{position:fixed;right:16px;bottom:20px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
+.top{position:fixed;right:18px;bottom:84px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
   background:var(--card);color:var(--text);font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,.15);display:none;cursor:pointer}
+
+/* ===== 问 AI ===== */
+.askrow{display:flex;justify-content:flex-end;margin-top:10px}
+.ask{border:1px solid var(--line);background:var(--accent-bg);color:var(--accent);border-radius:16px;
+  padding:4px 12px;font-size:14px;cursor:pointer;font-family:inherit}
+.aifab{position:fixed;right:16px;bottom:20px;z-index:20;height:48px;padding:0 16px;border-radius:24px;border:0;
+  background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:pointer;font-family:inherit}
+body.ai-open{overflow:hidden}
+.ai{position:fixed;inset:0;z-index:50;display:none;flex-direction:column;justify-content:flex-end;background:rgba(0,0,0,.35)}
+.ai.open{display:flex}
+.sheet{width:100%;max-width:760px;margin:0 auto;height:94%;background:var(--bg);border-radius:16px 16px 0 0;
+  display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -4px 20px rgba(0,0,0,.2)}
+.ai-head{display:flex;align-items:center;gap:6px;padding:10px 10px 6px 16px}
+.ai-head b{font-size:17px}
+.ai-model{flex:1;min-width:0;color:var(--sub);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  border:0;background:none;text-align:left;padding:0;cursor:pointer;font-family:inherit}
+.ai-icon{border:0;background:none;color:var(--text);font-size:19px;width:38px;height:38px;border-radius:8px;cursor:pointer;flex:none}
+.ai-icon:active{background:var(--accent-bg)}
+.ai-scope{display:flex;gap:6px;padding:0 16px}
+.ai-scope button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--sub);border-radius:8px;height:32px;
+  font-size:14px;cursor:pointer;font-family:inherit}
+.ai-scope button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);font-weight:600}
+.ai-scope button:disabled{opacity:.4;cursor:default}
+.ai-ctx{color:var(--sub);font-size:13px;padding:6px 16px 8px;border-bottom:1px solid var(--line);line-height:1.5}
+.ai-list{flex:1;overflow-y:auto;padding:8px 14px 12px;overscroll-behavior:contain}
+.msg{margin:12px 0}
+.msg.me{display:flex;justify-content:flex-end}
+.msg.me .bubble{background:var(--me-bg);color:var(--me-text);border-radius:14px 14px 4px 14px;padding:8px 12px;
+  max-width:85%;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.bot{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 14px 8px}
+.md{overflow-wrap:anywhere}
+.md p{margin:8px 0}
+.md h4{font-size:16px;margin:12px 0 4px}
+.md ul,.md ol{margin:6px 0;padding-left:1.4em}
+.md li{margin:3px 0}
+.md li>p{margin:2px 0}
+.md blockquote{margin:8px 0;padding:2px 12px;border-left:3px solid var(--line);color:var(--sub)}
+.md hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+.md .tbl{overflow-x:auto;margin:8px 0}
+.md table{border-collapse:collapse;font-size:14px;min-width:100%}
+.md th,.md td{border:1px solid var(--line);padding:4px 8px;text-align:left;vertical-align:top}
+.md th{background:var(--code-bg)}
+.think{margin:8px 0 0;font-size:14px;color:var(--sub)}
+.think summary{cursor:pointer}
+.think div{white-space:pre-wrap;max-height:240px;overflow-y:auto;margin-top:4px;padding:6px 8px;background:var(--code-bg);border-radius:8px}
+.cites{font-size:13px;margin:8px 0 2px;color:var(--sub)}
+.cites a{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.err{background:var(--err-bg);border:1px solid var(--err-line);border-radius:8px;padding:6px 10px;margin:8px 0;font-size:14px}
+.mfoot{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px;font-size:12px;color:var(--sub)}
+.mfoot .mmeta{flex:1;min-width:0}
+.mbtn{border:1px solid var(--line);background:var(--card);color:var(--sub);border-radius:6px;padding:1px 8px;font-size:12px;cursor:pointer;font-family:inherit}
+.wait{color:var(--sub);font-size:14px;padding:8px 0}
+.wait::after{content:'';animation:dots 1.2s steps(4) infinite}
+@keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
+.ai-empty{padding:8px 2px;color:var(--sub);font-size:14px}
+.chips{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;padding:8px 12px;
+  text-align:left;font-size:15px;cursor:pointer;font-family:inherit}
+.chip:active{background:var(--accent-bg)}
+.ai-input{display:flex;align-items:flex-end;gap:6px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--card)}
+.ai-input textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);
+  font:16px/1.5 inherit;font-family:inherit;padding:7px 10px;max-height:140px;min-height:40px}
+.web{flex:none;height:40px;border:1px solid var(--line);background:var(--bg);color:var(--sub);border-radius:10px;padding:0 8px;font-size:14px;cursor:pointer;font-family:inherit}
+.web.on{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);font-weight:600}
+.send{flex:none;height:40px;min-width:56px;border:0;border-radius:10px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;cursor:pointer;font-family:inherit}
+.send.stop{background:#c9453d;color:#fff}
+.send:disabled{opacity:.45;cursor:default}
+.ai-set{flex:1;overflow-y:auto;padding:4px 16px 24px}
+.ai-set h3{font-size:16px;margin:18px 0 6px}
+.ai-set p,.ai-set li{font-size:14px;color:var(--sub);margin:4px 0}
+.ai-set ol{padding-left:1.3em;margin:4px 0}
+.ai-set input,.ai-set textarea{width:100%;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--text);
+  font-size:15px;padding:8px 10px;font-family:inherit}
+.ai-set textarea{min-height:84px;resize:vertical}
+.row{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.row input{flex:1;min-width:0}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:8px;padding:6px 12px;font-size:14px;cursor:pointer;font-family:inherit}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.note{font-size:13px;color:var(--sub);margin-top:6px;min-height:1em}
+.models{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.model{display:flex;justify-content:space-between;gap:8px;border:1px solid var(--line);background:var(--card);color:var(--text);
+  border-radius:8px;padding:8px 10px;font-size:14px;text-align:left;cursor:pointer;font-family:inherit}
+.model.on{border-color:var(--accent);background:var(--accent-bg)}
+.model small{color:var(--sub);white-space:nowrap}
+@media (min-width:800px){.sheet{height:88%;margin-bottom:4vh;border-radius:16px}}
 </style>
 </head>
 <body>
@@ -99,6 +186,34 @@ pre{background:var(--code-bg);border-radius:8px;padding:10px 64px 10px 12px;marg
   <div id="view"><div class="empty">加载中…</div></div>
 </main>
 <button class="top" id="top" aria-label="回到顶部">↑</button>
+<button class="aifab" id="aifab">🤖 问 AI</button>
+
+<div class="ai" id="ai" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-label="问 AI">
+    <div class="ai-head">
+      <b>🤖 问 AI</b>
+      <button class="ai-model" id="aiModel" title="换模型"></button>
+      <button class="ai-icon" id="aiNew" aria-label="新对话" title="新对话">🗑️</button>
+      <button class="ai-icon" id="aiSetBtn" aria-label="设置" title="设置">⚙️</button>
+      <button class="ai-icon" id="aiClose" aria-label="关闭" title="关闭">✕</button>
+    </div>
+    <div id="aiChat" style="display:contents">
+      <div class="ai-scope" id="aiScope">
+        <button data-s="item">这一条</button>
+        <button data-s="day">这一天</button>
+        <button data-s="all">全部日期</button>
+      </div>
+      <div class="ai-ctx" id="aiCtx"></div>
+      <div class="ai-list" id="aiList"></div>
+      <div class="ai-input">
+        <button class="web" id="aiWeb" title="允许 AI 联网搜索、读网页（每次搜索另收费）">🌐 联网</button>
+        <textarea id="aiText" rows="1" placeholder="问问这些内容…"></textarea>
+        <button class="send" id="aiSend">发送</button>
+      </div>
+    </div>
+    <div class="ai-set" id="aiSet" style="display:none"></div>
+  </div>
+</div>
 
 <script>
 window.DAILY_INDEX = {};
@@ -158,6 +273,7 @@ function renderNewsItem(it, i) {
     ${box('explain', '📘', '看不懂？先补点背景', it.explain)}
     ${box('opinion', '💡', '我的看法', it.opinion)}
     ${src ? `<div class="sources">🔗 来源：${src}</div>` : ''}
+    <div class="askrow"><button class="ask" data-i="${i}">🤖 问 AI 这一条</button></div>
   </article>`;
 }
 
@@ -188,6 +304,7 @@ function renderGithubItem(it, i) {
     ${box('opinion', '💡', '我的看法', it.opinion)}
     ${install}
     <div class="sources">🔗 <a href="${esc(url)}" target="_blank" rel="noopener">GitHub 仓库 ↗</a></div>
+    <div class="askrow"><button class="ask" data-i="${i}">🤖 问 AI 这一条</button></div>
   </article>`;
 }
 
@@ -244,7 +361,12 @@ document.querySelectorAll('.tab').forEach(b => b.onclick = () => show(b.dataset.
 document.getElementById('dates').onchange = e => show(cur.type, e.target.value, true);
 document.getElementById('prev').onclick = () => { const l = DAILY_INDEX[cur.type]; show(cur.type, l[l.indexOf(cur.date) + 1], true); };
 document.getElementById('next').onclick = () => { const l = DAILY_INDEX[cur.type]; show(cur.type, l[l.indexOf(cur.date) - 1], true); };
-window.onpopstate = () => show(...fromHash(), false);
+window.onpopstate = () => {
+  // 手机返回键：对话框开着时只关对话框（对话框打开时压了一条历史记录）
+  if (aiPopSkip) { aiPopSkip = false; return; }
+  if ($('ai').classList.contains('open')) { closeAI(true); return; }
+  show(...fromHash(), false);
+};
 
 document.getElementById('view').addEventListener('click', e => {
   const a = e.target.closest('.toc a');
@@ -253,14 +375,18 @@ document.getElementById('view').addEventListener('click', e => {
     document.getElementById('item-' + a.dataset.i).scrollIntoView({ behavior: 'smooth' });
     return;
   }
+  const ask = e.target.closest('.ask');
+  if (ask) { openAI(+ask.dataset.i); return; }
   const btn = e.target.closest('.copy');
-  if (btn) {
-    const text = btn.nextElementSibling.textContent;
-    const done = () => { btn.textContent = '已复制'; setTimeout(() => btn.textContent = '复制', 1500); };
-    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
-    else fallbackCopy(text, done);
-  }
+  if (btn) copyText(btn.nextElementSibling.textContent, btn);
 });
+
+function copyText(text, btn) {
+  const old = btn.textContent;
+  const done = () => { btn.textContent = '已复制'; setTimeout(() => btn.textContent = old, 1500); };
+  if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+  else fallbackCopy(text, done);
+}
 
 function fallbackCopy(text, done) {
   const t = document.createElement('textarea');
@@ -274,6 +400,676 @@ function fallbackCopy(text, done) {
 const topBtn = document.getElementById('top');
 window.addEventListener('scroll', () => topBtn.style.display = scrollY > 600 ? 'block' : 'none', { passive: true });
 topBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+// ===== 问 AI：浏览器直接调 OpenRouter，key 只存在这台设备的浏览器里 =====
+const API = 'https://openrouter.ai/api/v1';
+const DEFAULT_MODEL = 'deepseek/deepseek-v4.1-flash';
+// 推荐列表只放 ID，价格打开设置时从 OpenRouter 实时拉
+const PICKS = ['deepseek/deepseek-v4.1-flash', 'google/gemini-3.8-flash', 'z-ai/glm-5.3-flash', 'anthropic/claude-sonnet-5'];
+const WEB_TOOLS = [
+  { type: 'openrouter:web_search', parameters: { max_uses: 3 } },
+  { type: 'openrouter:web_fetch', parameters: { max_uses: 3 } }
+];
+
+// localStorage 可能被禁用（隐私模式），失败时退回内存，本次打开页面期间照样能用
+const mem = {};
+const store = {
+  get(k, d) {
+    if (k in mem) return mem[k];
+    try { const v = localStorage.getItem('daily.ai.' + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; }
+  },
+  set(k, v) {
+    mem[k] = v;
+    try { localStorage.setItem('daily.ai.' + k, JSON.stringify(v)); } catch (e) {}
+  },
+  del(k) {
+    delete mem[k];
+    try { localStorage.removeItem('daily.ai.' + k); } catch (e) {}
+  }
+};
+
+const $ = id => document.getElementById(id);
+const ai = { scope: 'day', type: 'news', date: null, item: null, msgs: [], busy: false, ctrl: null, models: null };
+
+// ---------- Markdown（AI 的回答用，比数据文件那套完整） ----------
+function mdInline(s) {
+  return String(s).split(/(`[^`\n]+`)/).map(p => {
+    if (/^`[^`]+`$/.test(p)) return '<code>' + esc(p.slice(1, -1)) + '</code>';
+    return esc(p)
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)|(https?:\/\/[^\s<>()（）「」，。；、]+[^\s<>()（）「」，。；、.,;:!?'"])/g,
+        (m, t, u, bare) => bare
+          ? `<a href="${bare}" target="_blank" rel="noopener">${bare}</a>`
+          : `<a href="${u}" target="_blank" rel="noopener">${t}</a>`)
+      .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+      .replace(/(^|[^*\w])\*([^*\s][^*]*?)\*(?!\*)/g, '$1<i>$2</i>');
+  }).join('');
+}
+
+function md(src) {
+  const lines = String(src ?? '').replace(/\r/g, '').split('\n');
+  const listRe = /^(\s*)([-*+]|\d+[.)])\s+(.*)$/;
+  const sepRe = /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$/;
+  const cells = l => l.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+  let html = '', i = 0;
+  const para = [];
+  const flush = () => { if (para.length) { html += '<p>' + para.map(mdInline).join('<br>') + '</p>'; para.length = 0; } };
+
+  while (i < lines.length) {
+    const l = lines[i];
+    let m;
+    if ((m = l.match(/^\s*(`{3,}|~{3,})/))) {
+      flush();
+      const buf = [];
+      i++;
+      while (i < lines.length && !lines[i].trim().startsWith(m[1])) buf.push(lines[i++]);
+      i++;
+      html += codeBlock(buf.join('\n'));
+      continue;
+    }
+    if (!l.trim()) { flush(); i++; continue; }
+    if ((m = l.match(/^\s*#{1,6}\s+(.*)$/))) { flush(); html += '<h4>' + mdInline(m[1].replace(/\s*#+\s*$/, '')) + '</h4>'; i++; continue; }
+    if (/^\s*([-*_])(\s*\1){2,}\s*$/.test(l)) { flush(); html += '<hr>'; i++; continue; }
+    if (/^\s*>/.test(l)) {
+      flush();
+      const buf = [];
+      while (i < lines.length && /^\s*>/.test(lines[i])) buf.push(lines[i++].replace(/^\s*>\s?/, ''));
+      html += '<blockquote>' + md(buf.join('\n')) + '</blockquote>';
+      continue;
+    }
+    if (l.includes('|') && i + 1 < lines.length && sepRe.test(lines[i + 1]) && lines[i + 1].includes('-')) {
+      flush();
+      const head = cells(l);
+      i += 2;
+      const rows = [];
+      while (i < lines.length && lines[i].includes('|') && lines[i].trim()) rows.push(cells(lines[i++]));
+      html += '<div class="tbl"><table><thead><tr>' + head.map(c => '<th>' + mdInline(c) + '</th>').join('') + '</tr></thead><tbody>'
+        + rows.map(r => '<tr>' + head.map((_, k) => '<td>' + mdInline(r[k] ?? '') + '</td>').join('') + '</tr>').join('')
+        + '</tbody></table></div>';
+      continue;
+    }
+    if ((m = l.match(listRe))) {
+      flush();
+      const base = m[1].length;
+      const ordered = /\d/.test(m[2]);
+      const items = [];
+      while (i < lines.length) {
+        const s = lines[i];
+        const mm = s.match(listRe);
+        if (mm && mm[1].length <= base + 1) { items.push([mm[3]]); i++; continue; }
+        if (s.trim() && /^\s/.test(s) && items.length) { items[items.length - 1].push(s.replace(/^\s{1,4}/, '')); i++; continue; }
+        // 空行后面还是列表或缩进内容，就算同一个列表
+        if (!s.trim() && i + 1 < lines.length && (listRe.test(lines[i + 1]) || /^\s{2,}\S/.test(lines[i + 1]))
+            && (lines[i + 1].match(listRe)?.[1].length ?? 99) >= base) { i++; continue; }
+        break;
+      }
+      const start = ordered ? parseInt(m[2]) : 1;
+      html += (ordered ? `<ol${start !== 1 ? ` start="${start}"` : ''}>` : '<ul>')
+        + items.map(it => '<li>' + (it.length > 1 ? mdInline(it[0]) + md(it.slice(1).join('\n')) : mdInline(it[0])) + '</li>').join('')
+        + (ordered ? '</ol>' : '</ul>');
+      continue;
+    }
+    para.push(l);
+    i++;
+  }
+  flush();
+  return html;
+}
+
+// ---------- 上下文：把页面数据整理成给模型读的文字 ----------
+function fmtItem(type, it, i) {
+  const L = [];
+  if (type === 'github') {
+    L.push(`【第 ${i + 1} 条】${it.repo}：${it.title}`);
+    const meta = [it.lang && '语言 ' + it.lang, it.stars && '星数 ' + it.stars, it.today && '今日 +' + it.today, it.week && '本周 +' + it.week].filter(Boolean);
+    if (meta.length) L.push(meta.join('，'));
+    L.push('仓库：' + (it.url || 'https://github.com/' + it.repo));
+  } else {
+    L.push(`【第 ${i + 1} 条】${it.title}`);
+  }
+  L.push('正文：' + it.body);
+  if (it.explain) L.push('背景：' + it.explain);
+  if (it.opinion) L.push('看法：' + it.opinion);
+  (it.install || []).forEach(sec => {
+    L.push('〔' + sec.title + '〕');
+    if (sec.intro) L.push(sec.intro);
+    (sec.steps || []).forEach((st, k) => {
+      L.push(`${k + 1}. ${st.text}`);
+      if (st.code) L.push('```\n' + st.code + '\n```');
+      if (st.after) L.push(st.after);
+    });
+    if (sec.done) L.push('装好的标志：' + sec.done);
+  });
+  if (it.sources?.length) L.push('来源：' + it.sources.map(x => `${x.name} ${x.url}`).join('；'));
+  return L.join('\n');
+}
+
+function fmtDay(type, d) {
+  return `## ${d.date} ${TYPES[type].name}\n今日看点：${d.highlight || ''}\n\n` + (d.items || []).map((it, i) => fmtItem(type, it, i)).join('\n\n');
+}
+
+async function loadDay(type, date) {
+  const key = `${type}/${date}`;
+  if (!DAILY_DATA[key]) await loadScript(`data/${key}.js`);
+  return DAILY_DATA[key];
+}
+
+async function buildContext() {
+  if (ai.scope === 'all') {
+    const parts = [];
+    for (const t of Object.keys(TYPES)) {
+      const dates = DAILY_INDEX[t] || [];
+      const days = await Promise.all(dates.map(d => loadDay(t, d).catch(() => null)));
+      days.forEach(d => d && parts.push(fmtDay(t, d)));
+    }
+    return parts.join('\n\n');
+  }
+  const d = await loadDay(ai.type, ai.date);
+  if (ai.scope === 'day') return fmtDay(ai.type, d);
+  const it = d.items[ai.item];
+  const others = d.items.map((x, k) => k === ai.item ? null : `${k + 1}. ${ai.type === 'github' ? x.repo + '：' : ''}${x.title}`).filter(Boolean);
+  return `## ${d.date} ${TYPES[ai.type].name}（用户在问这一条）\n\n${fmtItem(ai.type, it, ai.item)}\n\n`
+    + `（同一天的其他条目，只列标题：${others.join('；')}）`;
+}
+
+function systemPrompt(ctx) {
+  const profile = store.get('profile', '').trim();
+  const web = store.get('web', false);
+  return [
+    '你是「每日速递」网站里的问答助手。这个网站每天由 AI 整理两类内容：AI 资讯、GitHub 热门项目。用户正在看下面的内容，会就它向你提问。',
+    '',
+    '回答要求：',
+    '- 用简体中文，说人话，先给结论再展开；专业词第一次出现时顺手解释一句',
+    '- 优先依据下面提供的内容。内容里没有、是你自己补充的，要说明是补充；拿不准就直说不确定，不要编版本号、价格、命令参数',
+    '- 内容里的「背景」「看法」是 AI 写的解读，不一定对，发现问题可以直接指出',
+    '- 给命令要完整、能直接复制，并分清是手机 Termux 还是电脑',
+    '- 篇幅跟着问题走，简单问题简短回答',
+    web ? '- 你可以联网搜索、读取网页，用来核实或补充最新信息；用到的网上信息要附上链接' : '- 你现在不能联网。问题需要最新信息时，说明你只能依据已有内容，建议用户打开输入框左边的「🌐 联网」再问',
+    profile ? '\n关于提问的人：' + profile : '',
+    '',
+    '今天是 ' + new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-') + '。',
+    '',
+    '===== 内容开始 =====',
+    ctx,
+    '===== 内容结束 ====='
+  ].join('\n');
+}
+
+// ---------- 打开 / 范围切换 / 对话保存 ----------
+function chatKey() {
+  if (ai.scope === 'all') return 'chat.all';
+  if (ai.scope === 'day') return `chat.day/${ai.type}/${ai.date}`;
+  return `chat.item/${ai.type}/${ai.date}/${ai.item}`;
+}
+
+function saveChat() {
+  const msgs = ai.msgs.filter(m => !m.pending).slice(-40);
+  if (msgs.length) store.set(chatKey(), msgs); else store.del(chatKey());
+}
+
+function openAI(item) {
+  if (ai.busy) { showPanel(); return; }
+  ai.type = cur.type;
+  ai.date = cur.date;
+  ai.item = Number.isInteger(item) ? item : null;
+  if (!ai.date) return;
+  ai.scope = ai.item === null ? 'day' : 'item';
+  ai.msgs = store.get(chatKey(), []);
+  showPanel();
+  renderChat();
+  if (!store.get('key', '')) showSettings();
+}
+
+let aiPopSkip = false;
+// 开着对话框时刷新页面，历史记录里会留下那条标记，清掉免得关闭时多退一步
+if (history.state?.ai) history.replaceState(null, '', location.href);
+function showPanel() {
+  if (!history.state?.ai) history.pushState({ ai: 1 }, '', location.href);
+  $('ai').classList.add('open');
+  $('ai').setAttribute('aria-hidden', 'false');
+  document.body.classList.add('ai-open');
+}
+
+function closeAI(fromPop) {
+  $('ai').classList.remove('open');
+  $('ai').setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('ai-open');
+  if (fromPop !== true && history.state?.ai) { aiPopSkip = true; history.back(); }
+}
+
+function setScope(s) {
+  if (ai.busy || s === ai.scope || (s === 'item' && ai.item === null)) return;
+  saveChat();
+  ai.scope = s;
+  ai.msgs = store.get(chatKey(), []);
+  renderChat();
+}
+
+function ctxLabel() {
+  const name = TYPES[ai.type].name;
+  if (ai.scope === 'all') {
+    const n = t => (DAILY_INDEX[t] || []).length;
+    return `📚 全部 ${n('news')} 天 AI 资讯 + ${n('github')} 天 GitHub 热门（内容多，每问一次花费会高一些）`;
+  }
+  if (ai.scope === 'day') return `📅 ${ai.date} ${name}，整页 ${DAILY_DATA[`${ai.type}/${ai.date}`]?.items?.length ?? ''} 条`;
+  const it = DAILY_DATA[`${ai.type}/${ai.date}`]?.items?.[ai.item];
+  return `📌 ${ai.date} ${name} 第 ${ai.item + 1} 条：${it ? (ai.type === 'github' ? it.repo : it.title) : ''}`;
+}
+
+function suggestions() {
+  const gh = ai.type === 'github';
+  if (ai.scope === 'item') return gh
+    ? ['这个项目到底能帮我干什么？用大白话讲', '在手机 Termux 上装，可能会遇到哪些坑？', '有没有类似的项目？各自有什么区别？', { q: '联网看看这个项目的 README 和最近的更新', web: true }]
+    : ['用大白话再讲一遍，这件事到底是什么', '这件事对普通开发者有什么影响？', '理解这条新闻，还需要补哪些背景知识？', { q: '联网查查这件事的最新进展', web: true }];
+  if (ai.scope === 'day') return gh
+    ? ['今天这几个项目，哪个最值得先试？为什么？', '哪些能直接在手机上用？', '用一句话分别说说每个项目是干嘛的']
+    : ['今天哪几条最值得关注？为什么？', '把今天的内容浓缩成 5 句话', '今天有哪些跟 AI Agent 开发有关的？'];
+  return ['最近 AI 圈最明显的趋势是什么？', '这些天里有哪些新闻前后是有关联的？', '所有推荐过的项目里，哪些适合在手机上用？'];
+}
+
+function modelName() { return store.get('model', DEFAULT_MODEL); }
+
+// ---------- 渲染 ----------
+function renderChat() {
+  $('aiChat').style.display = 'contents';
+  $('aiSet').style.display = 'none';
+  $('aiModel').textContent = modelName();
+  document.querySelectorAll('#aiScope button').forEach(b => {
+    b.classList.toggle('on', b.dataset.s === ai.scope);
+    b.disabled = ai.busy || (b.dataset.s === 'item' && ai.item === null);
+  });
+  $('aiCtx').textContent = ctxLabel();
+  $('aiWeb').classList.toggle('on', store.get('web', false));
+  $('aiNew').disabled = ai.busy;
+  renderMsgs();
+  renderSend();
+}
+
+function renderSend() {
+  const b = $('aiSend');
+  b.textContent = ai.busy ? '停止' : '发送';
+  b.classList.toggle('stop', ai.busy);
+}
+
+function renderMsgs() {
+  const list = $('aiList');
+  if (!ai.msgs.length) {
+    const noKey = !store.get('key', '');
+    list.innerHTML = `<div class="ai-empty">
+      ${noKey ? '⚠️ 还没填 OpenRouter API key，<a href="#" data-act="set">点这里去设置</a>。<br>' : ''}
+      AI 会读上面范围里的全部内容再回答你。可以直接问，或者点一个：
+      <div class="chips">${suggestions().map(x => {
+        const q = typeof x === 'string' ? x : x.q;
+        return `<button class="chip" data-q="${esc(q)}"${x.web ? ' data-web="1"' : ''}>${x.web ? '🌐 ' : ''}${esc(q)}</button>`;
+      }).join('')}</div></div>`;
+    return;
+  }
+  list.innerHTML = ai.msgs.map(msgHtml).join('');
+  list.scrollTop = list.scrollHeight;
+}
+
+function msgHtml(m, idx) {
+  if (m.role === 'user') return `<div class="msg me"><div class="bubble">${esc(m.content)}</div></div>`;
+  const last = idx === ai.msgs.length - 1;
+  const u = m.usage;
+  const meta = [
+    m.model ? m.model.split('/').pop() : '',
+    u ? `${u.prompt_tokens ?? '?'} + ${u.completion_tokens ?? '?'} tokens` : '',
+    u && typeof u.cost === 'number' ? '$' + (u.cost < 0.0001 && u.cost > 0 ? u.cost.toExponential(1) : u.cost.toFixed(4)) : '',
+    u?.server_tool_use?.web_search_requests ? `🌐 搜了 ${u.server_tool_use.web_search_requests} 次` : '',
+    m.stopped ? '已停止' : '',
+    m.finish === 'length' ? '⚠️ 回答太长被截断了' : ''
+  ].filter(Boolean).join(' · ');
+  const waiting = m.pending && !m.content && !m.reasoning;
+  return `<div class="msg bot" data-idx="${idx}">
+    ${m.reasoning ? `<details class="think"${m.pending && !m.content ? ' open' : ''}><summary>💭 思考过程</summary><div>${esc(m.reasoning)}</div></details>` : ''}
+    <div class="md">${md(m.content)}</div>
+    ${waiting ? `<div class="wait">${store.get('web', false) ? '思考中（可能会先联网搜索）' : '思考中'}</div>` : ''}
+    ${m.cites?.length ? `<div class="cites">🔗 参考：${m.cites.map(c => `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title || c.url)}</a>`).join('')}</div>` : ''}
+    ${m.error ? `<div class="err">⚠️ ${esc(m.error)}</div>` : ''}
+    ${m.pending ? '' : `<div class="mfoot"><span class="mmeta">${esc(meta)}</span>
+      ${m.content ? `<button class="mbtn" data-act="copy" data-idx="${idx}">复制</button>` : ''}
+      ${last ? '<button class="mbtn" data-act="retry">重新回答</button>' : ''}</div>`}
+  </div>`;
+}
+
+let raf = 0;
+function renderLast() {
+  if (raf) return;
+  raf = requestAnimationFrame(() => {
+    raf = 0;
+    const list = $('aiList');
+    const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 80;
+    const idx = ai.msgs.length - 1;
+    const el = list.querySelector(`.msg.bot[data-idx="${idx}"]`);
+    if (!el) { renderMsgs(); return; }
+    const think = el.querySelector('.think');
+    const wasOpen = think?.open;
+    const tmp = document.createElement('div');
+    tmp.innerHTML = msgHtml(ai.msgs[idx], idx);
+    const fresh = tmp.firstElementChild;
+    // 用户手动展开过的思考过程，刷新时保持展开
+    if (think && wasOpen && fresh.querySelector('.think')) fresh.querySelector('.think').open = true;
+    el.replaceWith(fresh);
+    if (nearBottom) list.scrollTop = list.scrollHeight;
+  });
+}
+
+// ---------- 请求 ----------
+async function* sse(res) {
+  const reader = res.body.getReader();
+  const dec = new TextDecoder();
+  let buf = '';
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += dec.decode(value, { stream: true });
+    let k;
+    while ((k = buf.indexOf('\n')) >= 0) {
+      const line = buf.slice(0, k).replace(/\r$/, '');
+      buf = buf.slice(k + 1);
+      // 以「:」开头的是 OpenRouter 的保活注释，不是 JSON
+      if (!line.startsWith('data:')) continue;
+      const data = line.slice(5).trim();
+      if (data === '[DONE]') return;
+      if (!data) continue;
+      try { yield JSON.parse(data); } catch (e) {}
+    }
+  }
+}
+
+function errText(status, body) {
+  const msg = body?.error?.message || '';
+  const raw = msg ? `（原始信息：${msg}）` : '';
+  if (status === 401) return 'API key 不对或已被禁用，去 ⚙️ 设置里检查一下' + raw;
+  if (status === 402) return 'OpenRouter 余额不够了，或这个 key 的额度上限用完了' + raw;
+  if (status === 429) return '请求太频繁（免费模型每天次数有限），过一会儿再试' + raw;
+  if (status === 403) return '请求被拦下了（内容审核或 key 权限）' + raw;
+  if (status === 404) return (/tool/i.test(msg) ? '这个模型不支持联网工具，关掉「🌐 联网」或换个模型' : '模型不存在或暂时没有可用的服务商，去设置里换一个') + raw;
+  if (status === 400 && /tool/i.test(msg)) return '这个模型不支持联网工具，关掉「🌐 联网」或换个模型' + raw;
+  if (status >= 500) return 'OpenRouter 或模型服务商出错了，稍后重试' + raw;
+  return `请求失败（${status}）` + raw;
+}
+
+async function send(text) {
+  text = (text ?? '').trim();
+  if (!text || ai.busy) return;
+  const key = store.get('key', '');
+  if (!key) { showSettings(); return; }
+  ai.msgs.push({ role: 'user', content: text });
+  await answer();
+}
+
+async function answer() {
+  const key = store.get('key', '');
+  const model = modelName();
+  const web = store.get('web', false);
+  const history = ai.msgs.filter(m => !m.error || m.content).map(m => ({ role: m.role, content: m.content })).slice(-20);
+  const msg = { role: 'assistant', content: '', reasoning: '', model, pending: true };
+  ai.msgs.push(msg);
+  ai.busy = true;
+  ai.ctrl = new AbortController();
+  renderChat();
+
+  try {
+    const ctx = await buildContext();
+    const res = await fetch(API + '/chat/completions', {
+      method: 'POST',
+      signal: ai.ctrl.signal,
+      headers: {
+        'Authorization': 'Bearer ' + key,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': location.origin + location.pathname,
+        'X-OpenRouter-Title': 'Daily Digest',
+        'X-OpenRouter-App-Visibility': 'hidden'
+      },
+      body: JSON.stringify({
+        model,
+        stream: true,
+        messages: [{ role: 'system', content: systemPrompt(ctx) }, ...history],
+        ...(web ? { tools: WEB_TOOLS } : {})
+      })
+    });
+    if (!res.ok) {
+      let body = null;
+      try { body = await res.json(); } catch (e) {}
+      throw new Error(errText(res.status, body));
+    }
+    for await (const ch of sse(res)) {
+      if (ch.error) throw new Error(errText(ch.error.code || 0, ch));
+      if (ch.model) msg.model = ch.model;
+      if (ch.usage) msg.usage = ch.usage;
+      const c = ch.choices?.[0];
+      if (c) {
+        const d = c.delta || {};
+        if (d.reasoning) msg.reasoning += d.reasoning;
+        if (d.content) msg.content += d.content;
+        const ann = d.annotations || c.message?.annotations;
+        if (ann) {
+          msg.cites = msg.cites || [];
+          for (const a of ann) {
+            const uc = a.url_citation || a;
+            if (a.type === 'url_citation' && uc.url && !msg.cites.some(x => x.url === uc.url)) msg.cites.push({ url: uc.url, title: uc.title });
+          }
+        }
+        if (c.finish_reason === 'error') throw new Error('生成到一半出错了，可以点「重新回答」');
+        if (c.finish_reason) msg.finish = c.finish_reason;
+      }
+      renderLast();
+    }
+    if (!msg.content && !msg.reasoning) msg.error = '模型没有返回内容，可以点「重新回答」或换个模型';
+  } catch (e) {
+    if (e.name === 'AbortError') msg.stopped = true;
+    else if (e instanceof TypeError) msg.error = '连不上 openrouter.ai。在国内要先开代理（FlClash），开了再点「重新回答」';
+    else msg.error = e.message;
+  } finally {
+    msg.pending = false;
+    if (!msg.reasoning) delete msg.reasoning;
+    ai.busy = false;
+    ai.ctrl = null;
+    saveChat();
+    renderChat();
+  }
+}
+
+function retry() {
+  if (ai.busy) return;
+  while (ai.msgs.length && ai.msgs[ai.msgs.length - 1].role === 'assistant') ai.msgs.pop();
+  if (!ai.msgs.length) { renderChat(); return; }
+  answer();
+}
+
+// ---------- 设置 ----------
+function money(n) { return '$' + (Math.round(n * 100) / 100).toFixed(2); }
+function price(m) {
+  if (!m?.pricing) return '';
+  const p = x => { const v = +x * 1e6; return v === 0 ? '0' : v < 1 ? v.toFixed(2) : v.toFixed(1).replace(/\.0$/, ''); };
+  if (+m.pricing.prompt === 0 && +m.pricing.completion === 0) return '免费';
+  return `$${p(m.pricing.prompt)} / $${p(m.pricing.completion)}`;
+}
+
+async function loadModels() {
+  if (ai.models) return ai.models;
+  const res = await fetch(API + '/models');
+  if (!res.ok) throw new Error('模型列表加载失败（' + res.status + '）');
+  ai.models = (await res.json()).data || [];
+  return ai.models;
+}
+
+function showSettings() {
+  $('aiChat').style.display = 'none';
+  const box = $('aiSet');
+  box.style.display = 'block';
+  const key = store.get('key', '');
+  box.innerHTML = `
+    <h3>① OpenRouter API key</h3>
+    ${key ? '' : `<ol>
+      <li>打开 <a href="https://openrouter.ai/settings/keys" target="_blank" rel="noopener">openrouter.ai/settings/keys</a>（国内要开代理），登录后点「Create Key」</li>
+      <li><b>建议给这个 key 设一个额度上限</b>（比如 $2），万一泄露也亏不了多少</li>
+      <li>复制 <code>sk-or-</code> 开头的 key，粘到下面，点保存</li></ol>`}
+    <div class="row">
+      <input id="setKey" type="password" autocomplete="off" placeholder="sk-or-v1-..." value="${esc(key)}">
+      <button class="btn" data-act="eye">显示</button>
+    </div>
+    <div class="row">
+      <button class="btn pri" data-act="savekey">保存</button>
+      <button class="btn" data-act="checkkey">查余额</button>
+      ${key ? '<button class="btn" data-act="delkey">删除 key</button>' : ''}
+    </div>
+    <div class="note" id="keyNote"></div>
+    <p>key 只保存在这台设备的这个浏览器里，只发给 openrouter.ai，不会上传到网站。别在别人的设备上填。</p>
+
+    <h3>② 模型</h3>
+    <p>价格是每百万 token 的「输入 / 输出」美元价。整页内容大约 1 万多 token，所以问一次通常是几厘钱到几分钱。</p>
+    <div class="models" id="setPicks">${PICKS.map(id => `<button class="model${id === modelName() ? ' on' : ''}" data-model="${id}"><span>${id}${id === DEFAULT_MODEL ? '（默认）' : ''}</span><small data-price="${id}"></small></button>`).join('')}</div>
+    <p style="margin-top:10px">或者填任意模型 ID（输入关键词会提示）：</p>
+    <div class="row">
+      <input id="setModel" list="modelList" autocomplete="off" placeholder="例如 openai/gpt-5.6-luna" value="${esc(modelName())}">
+      <button class="btn" data-act="savemodel">使用</button>
+    </div>
+    <datalist id="modelList"></datalist>
+    <div class="note" id="modelNote"></div>
+
+    <h3>③ 关于我（可选）</h3>
+    <p>写上你的情况，AI 会按你的水平和设备来回答。只存在本机。</p>
+    <textarea id="setProfile" placeholder="例如：自学开发者，主要用安卓手机 Termux 写代码，在做 AI 应用和 Agent，会一点 JS 和 Python">${esc(store.get('profile', ''))}</textarea>
+    <div class="row"><button class="btn" data-act="saveprofile">保存</button></div>
+    <div class="note" id="profileNote"></div>
+
+    <div class="row" style="margin-top:22px"><button class="btn pri" data-act="back">← 回到对话</button></div>`;
+
+  loadModels().then(list => {
+    const byId = Object.fromEntries(list.map(m => [m.id, m]));
+    box.querySelectorAll('[data-price]').forEach(el => {
+      const m = byId[el.dataset.price];
+      el.textContent = m ? price(m) : '已下架';
+    });
+    $('modelList') && ($('modelList').innerHTML = list.map(m => `<option value="${esc(m.id)}">${esc(m.name)} · ${price(m)}</option>`).join(''));
+    modelHint();
+  }).catch(e => { const n = $('modelNote'); if (n) n.textContent = e.message + '（开代理后重新打开设置）'; });
+}
+
+function modelHint() {
+  const n = $('modelNote');
+  if (!n || !ai.models) return;
+  const m = ai.models.find(x => x.id === modelName());
+  if (!m) { n.textContent = '⚠️ 当前模型 ' + modelName() + ' 在 OpenRouter 上找不到了，换一个吧'; return; }
+  const tools = (m.supported_parameters || []).includes('tools');
+  n.textContent = `当前：${m.name} · ${price(m)} · 上下文 ${Math.round(m.context_length / 1000)}K${tools ? '' : ' · ⚠️ 不支持联网工具'}`;
+}
+
+async function checkKey() {
+  const note = $('keyNote');
+  const key = $('setKey').value.trim() || store.get('key', '');
+  if (!key) { note.textContent = '先填 key'; return; }
+  note.textContent = '查询中…';
+  try {
+    const res = await fetch(API + '/key', { headers: { Authorization: 'Bearer ' + key } });
+    const body = await res.json().catch(() => null);
+    if (!res.ok) { note.textContent = '❌ ' + errText(res.status, body); return; }
+    const d = body.data || {};
+    const parts = ['✅ key 有效'];
+    if (typeof d.limit === 'number') parts.push(`额度上限 ${money(d.limit)}，还剩 ${money(d.limit_remaining ?? d.limit - d.usage)}`);
+    else parts.push('这个 key 没设额度上限');
+    if (typeof d.usage === 'number') parts.push(`累计用了 ${money(d.usage)}，今天 ${money(d.usage_daily || 0)}`);
+    if (d.is_free_tier) parts.push('账户还没充过值，只能用免费模型');
+    note.textContent = parts.join('；');
+  } catch (e) {
+    note.textContent = '❌ 连不上 openrouter.ai，先开代理';
+  }
+}
+
+$('aiSet').addEventListener('click', e => {
+  const b = e.target.closest('[data-act],[data-model]');
+  if (!b) return;
+  if (b.dataset.model) {
+    store.set('model', b.dataset.model);
+    $('setModel').value = b.dataset.model;
+    $('aiSet').querySelectorAll('.model').forEach(x => x.classList.toggle('on', x === b));
+    $('aiModel').textContent = b.dataset.model;
+    modelHint();
+    return;
+  }
+  const act = b.dataset.act;
+  if (act === 'eye') { const k = $('setKey'); k.type = k.type === 'password' ? 'text' : 'password'; b.textContent = k.type === 'password' ? '显示' : '隐藏'; }
+  if (act === 'savekey') {
+    const v = $('setKey').value.trim();
+    if (!v) { $('keyNote').textContent = '先填 key'; return; }
+    if (!/^sk-or-/.test(v)) { $('keyNote').textContent = '⚠️ OpenRouter 的 key 一般是 sk-or- 开头，确认一下有没有复制错'; }
+    store.set('key', v);
+    checkKey();
+  }
+  if (act === 'checkkey') checkKey();
+  if (act === 'delkey' && confirm('从这台设备上删掉 key？')) { store.del('key'); showSettings(); }
+  if (act === 'savemodel') {
+    const v = $('setModel').value.trim();
+    if (!v) return;
+    store.set('model', v);
+    $('aiModel').textContent = v;
+    $('aiSet').querySelectorAll('.model').forEach(x => x.classList.toggle('on', x.dataset.model === v));
+    modelHint();
+    if (ai.models && !ai.models.some(m => m.id === v)) $('modelNote').textContent = '⚠️ OpenRouter 上没有叫 ' + v + ' 的模型，检查一下拼写';
+  }
+  if (act === 'saveprofile') { store.set('profile', $('setProfile').value.trim()); $('profileNote').textContent = '✅ 已保存'; }
+  if (act === 'back') renderChat();
+});
+
+// ---------- 事件 ----------
+$('aifab').onclick = () => openAI(null);
+$('aiClose').onclick = () => closeAI();
+$('ai').addEventListener('click', e => { if (e.target === $('ai')) closeAI(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('ai').classList.contains('open')) closeAI(); });
+$('aiSetBtn').onclick = () => $('aiSet').style.display === 'none' ? showSettings() : renderChat();
+$('aiModel').onclick = showSettings;
+$('aiScope').addEventListener('click', e => { const b = e.target.closest('button'); if (b) setScope(b.dataset.s); });
+$('aiNew').onclick = () => {
+  if (ai.busy || !ai.msgs.length) return;
+  if (!confirm('清空这个范围的对话记录？')) return;
+  ai.msgs = [];
+  saveChat();
+  renderChat();
+};
+$('aiWeb').onclick = () => {
+  store.set('web', !store.get('web', false));
+  $('aiWeb').classList.toggle('on', store.get('web', false));
+};
+
+const input = $('aiText');
+function autosize() { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight + 2, 140) + 'px'; }
+input.addEventListener('input', autosize);
+input.addEventListener('keydown', e => {
+  // 电脑上 Enter 发送、Shift+Enter 换行；手机键盘的回车就是换行
+  if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && !matchMedia('(pointer: coarse)').matches) {
+    e.preventDefault();
+    $('aiSend').click();
+  }
+});
+$('aiSend').onclick = () => {
+  if (ai.busy) { ai.ctrl?.abort(); return; }
+  const t = input.value;
+  if (!t.trim()) return;
+  input.value = '';
+  autosize();
+  send(t);
+};
+
+$('aiList').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (chip) {
+    if (chip.dataset.web && !store.get('web', false)) { store.set('web', true); $('aiWeb').classList.add('on'); }
+    send(chip.dataset.q);
+    return;
+  }
+  const b = e.target.closest('[data-act]');
+  if (b) {
+    e.preventDefault();
+    if (b.dataset.act === 'set') showSettings();
+    if (b.dataset.act === 'retry') retry();
+    if (b.dataset.act === 'copy') copyText(ai.msgs[+b.dataset.idx].content, b);
+    return;
+  }
+  const c = e.target.closest('.copy');
+  if (c) copyText(c.nextElementSibling.textContent, c);
+});
 
 Promise.allSettled(Object.keys(TYPES).map(t => loadScript(`data/${t}/index.js?v=${VER}`)))
   .then(() => show(...fromHash(), false));
