@@ -563,12 +563,21 @@ async function buildContext() {
     }
     return parts.join('\n\n');
   }
-  const d = await loadDay(ai.type, ai.date);
-  if (ai.scope === 'day') return fmtDay(ai.type, d);
-  const it = d.items[ai.item];
-  const others = d.items.map((x, k) => k === ai.item ? null : `${k + 1}. ${ai.type === 'github' ? x.repo + '：' : ''}${x.title}`).filter(Boolean);
-  return `## ${d.date} ${TYPES[ai.type].name}（用户在问这一条）\n\n${fmtItem(ai.type, it, ai.item)}\n\n`
-    + `（同一天的其他条目，只列标题：${others.join('；')}）`;
+  // 「这一天」「这一条」都带上当天两个栏目的全部内容：在资讯页打开也能问 GitHub 热门
+  const parts = [];
+  for (const t of dayTypes()) {
+    const d = await loadDay(t, ai.date).catch(() => null);
+    if (d) parts.push(fmtDay(t, d));
+  }
+  if (ai.scope === 'day') return parts.join('\n\n');
+  const it = DAILY_DATA[`${ai.type}/${ai.date}`].items[ai.item];
+  return `（用户正在问的是：${ai.date} ${TYPES[ai.type].name}第 ${ai.item + 1} 条「${ai.type === 'github' ? it.repo + '：' : ''}${it.title}」，`
+    + `回答围绕这一条；当天其他内容供参考）\n\n` + parts.join('\n\n');
+}
+
+// 当天有哪些栏目，当前栏目排前面
+function dayTypes() {
+  return Object.keys(TYPES).filter(t => (DAILY_INDEX[t] || []).includes(ai.date)).sort((a, b) => (b === ai.type) - (a === ai.type));
 }
 
 function systemPrompt(ctx) {
@@ -650,9 +659,10 @@ function ctxLabel() {
     const n = t => (DAILY_INDEX[t] || []).length;
     return `📚 全部 ${n('news')} 天 AI 资讯 + ${n('github')} 天 GitHub 热门（内容多，每问一次花费会高一些）`;
   }
-  if (ai.scope === 'day') return `📅 ${ai.date} ${name}，整页 ${DAILY_DATA[`${ai.type}/${ai.date}`]?.items?.length ?? ''} 条`;
+  const both = dayTypes().map(t => TYPES[t].name).join(' + ');
+  if (ai.scope === 'day') return `📅 ${ai.date} 当天全部：${both}`;
   const it = DAILY_DATA[`${ai.type}/${ai.date}`]?.items?.[ai.item];
-  return `📌 ${ai.date} ${name} 第 ${ai.item + 1} 条：${it ? (ai.type === 'github' ? it.repo : it.title) : ''}`;
+  return `📌 ${name}第 ${ai.item + 1} 条：${it ? (ai.type === 'github' ? it.repo : it.title) : ''}（也能看到当天的${both}）`;
 }
 
 function suggestions() {
@@ -660,9 +670,10 @@ function suggestions() {
   if (ai.scope === 'item') return gh
     ? ['这个项目到底能帮我干什么？用大白话讲', '在手机 Termux 上装，可能会遇到哪些坑？', '有没有类似的项目？各自有什么区别？', { q: '联网看看这个项目的 README 和最近的更新', web: true }]
     : ['用大白话再讲一遍，这件事到底是什么', '这件事对普通开发者有什么影响？', '理解这条新闻，还需要补哪些背景知识？', { q: '联网查查这件事的最新进展', web: true }];
-  if (ai.scope === 'day') return gh
-    ? ['今天这几个项目，哪个最值得先试？为什么？', '哪些能直接在手机上用？', '用一句话分别说说每个项目是干嘛的']
-    : ['今天哪几条最值得关注？为什么？', '把今天的内容浓缩成 5 句话', '今天有哪些跟 AI Agent 开发有关的？'];
+  if (ai.scope === 'day') return (gh
+    ? ['今天这几个项目，哪个最值得先试？为什么？', '哪些能直接在手机上用？', '今天的 GitHub 热门和 AI 资讯有没有能对上的？']
+    : ['今天哪几条最值得关注？为什么？', '把今天的内容浓缩成 5 句话', '今天推荐的 GitHub 项目里，哪个跟今天的新闻有关？']
+  ).slice(0, dayTypes().length > 1 ? 3 : 2);
   return ['最近 AI 圈最明显的趋势是什么？', '这些天里有哪些新闻前后是有关联的？', '所有推荐过的项目里，哪些适合在手机上用？'];
 }
 
