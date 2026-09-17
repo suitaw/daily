@@ -1,6 +1,6 @@
 DAILY_DATA["github/2026-09-16"] = {
   "date": "2026-09-16",
-  "highlight": "今天最值得试的是 `security-audit-skill`——一条命令给 Claude Code 装上「安全审计」技能，写完自己的单文件小工具后顺手扫一遍更放心；记账类选了本地优先的 `BeeCount`，Android 上下个 APK 就能用，AI 还能帮你自动分类账单。",
+  "highlight": "今天最值得试的是 `security-audit-skill`——一条命令给 Claude Code 装上「安全审计」技能，写完自己的单文件小工具后顺手扫一遍更放心。",
   "items": [
     {
       "emoji": "🤖",
@@ -29,57 +29,6 @@ DAILY_DATA["github/2026-09-16"] = {
         }
       ],
       "url": "https://github.com/cloudflare/security-audit-skill"
-    },
-    {
-      "emoji": "🤖",
-      "repo": "mksglu/context-mode",
-      "title": "给 Claude Code 上下文瘦身的插件",
-      "lang": "TypeScript",
-      "stars": "23,167",
-      "body": "这是一个 Claude Code 插件，专门解决「用久了上下文越堆越多、代理越答越乱」的问题：它把工具执行的输出先收进一个隔离空间再摘要给 Claude，官方说能压掉 98% 的无用内容，还能在多次对话之间记住会话进度。这周（9月8日~9月15日）新增了 1,832 颗星，涨得挺快，说明不少用 AI 编程工具的人都被「上下文塞爆」这个问题烦过。它支持 17 种编程代理平台，Claude Code 是其中之一。",
-      "explain": "「上下文窗口」就是 AI 一次能记住的内容上限，写代码时间一长，工具的输出、历史对话都会往里堆，堆满了 AI 就会开始「失忆」或者东拉西扯。这个插件相当于给 Claude Code 配了个秘书，把琐碎的工具输出先整理精简，只把要点递给 Claude，腾出更多「脑容量」给真正的任务。",
-      "opinion": "如果你平时用 Claude Code 写一个工具写得比较久、感觉它后半程开始答非所问，这个插件值得装上试试，安装是标准的 Claude Code 插件市场流程，成本很低。不过它是刚冒头的新项目，稳定性和长期维护还有待观察，先在小项目上试用观察几天比较稳妥。📱 手机上：Termux 自带 Node.js v26，满足它要求的 Node ≥ 22.5，装的时候会优先用 Node 内置的 `node:sqlite`，不用额外编译原生模块，理论上能装，不保证一定顺利。",
-      "install": [
-        {
-          "title": "安装步骤 · 📱 手机 Termux / 💻 电脑（都在 Claude Code 里执行）",
-          "steps": [
-            { "text": "在 Claude Code 里添加插件市场：", "code": "/plugin marketplace add mksglu/context-mode" },
-            { "text": "安装插件：", "code": "/plugin install context-mode@context-mode" },
-            { "text": "装完用这条命令自检一下有没有装对：", "code": "/context-mode:ctx-doctor" }
-          ],
-          "done": "自检命令跑出「一切正常」之类的提示、没有报错，就算装成功。"
-        }
-      ],
-      "url": "https://github.com/mksglu/context-mode"
-    },
-    {
-      "emoji": "🛠",
-      "repo": "microsoft/markitdown",
-      "title": "把 PDF、Word、Excel 一键转成 Markdown",
-      "lang": "Python",
-      "stars": "184,639",
-      "body": "微软出的一个小工具，能把 PDF、Word、PPT、Excel、图片、网页等各种格式的文件转换成干净的 Markdown 文本，本来是给大模型处理文档准备的——AI 理解 Markdown 比理解原始 PDF/Word 格式效果好得多。这周新增了 3,046 颗星，是个已经存在一段时间、但仍在稳定涨人气的老牌项目。命令行一条命令就能转，也可以当 Python 库调用。",
-      "explain": "「Markdown」是一种用 `**加粗**`、`# 标题` 这类简单符号写格式的纯文本，比 PDF/Word 干净得多，AI 处理起来更准。如果你做的 Agent 需要「读」一份用户上传的合同、报表或者笔记，直接喂原始 PDF 效果往往很差，先转成 Markdown 再喂给大模型，是个常见的预处理套路。",
-      "opinion": "如果你以后想做一个能读文件的小工具（比如「上传一份 PDF，AI 帮你总结」），这个库基本是标配的第一步，比自己写 PDF 解析代码省事很多。安装时只装你需要的格式（pdf/docx/pptx/xlsx）就够，不用装全部（`[all]`），免得装到用不上的音频转录相关依赖。📱 手机上：基础转换功能是纯 Python 实现，不依赖 openai/anthropic 这类装不上的库，在 Termux 上能装。",
-      "install": [
-        {
-          "title": "安装步骤 · 📱 手机 Termux",
-          "steps": [
-            { "text": "装库，只选常用的几种文件格式支持：", "code": "pip install 'markitdown[pdf,docx,pptx,xlsx]'" },
-            { "text": "转换一个文件试试（把 test.pdf 换成你自己的文件路径）：", "code": "markitdown test.pdf -o test.md" }
-          ],
-          "done": "当前目录下生成了 test.md，打开能看到转换出来的文字内容，就算装成功。"
-        },
-        {
-          "title": "安装步骤 · 💻 电脑（Windows）",
-          "steps": [
-            { "text": "在 PowerShell 里装库：", "code": "pip install 'markitdown[pdf,docx,pptx,xlsx]'" },
-            { "text": "转换一个文件试试：", "code": "markitdown test.pdf -o test.md" }
-          ],
-          "done": "当前目录下生成了 test.md，能打开看到内容，就算装成功。"
-        }
-      ],
-      "url": "https://github.com/microsoft/markitdown"
     },
     {
       "emoji": "🛠",
@@ -140,60 +89,6 @@ DAILY_DATA["github/2026-09-16"] = {
         }
       ],
       "url": "https://github.com/ankitects/anki"
-    },
-    {
-      "emoji": "💰",
-      "repo": "TNT-Likely/BeeCount",
-      "title": "本地优先的开源记账 App，AI 能帮你记",
-      "lang": "Dart",
-      "stars": "2,400",
-      "body": "BeeCount（蜜蜂记账）是一款轻量的开源记账 App，数据优先存在你自己手机本地，不强制注册账号，也可以选择用 iCloud、WebDAV、S3 或者自建服务同步到多台设备。它内置了 AI 记账功能（接的是智谱 GLM-4 模型），说一句话或者拍张票据，AI 就能帮你整理成一条记账记录。支持 Android、iOS 和网页版，完整支持简体中文。",
-      "explain": "「本地优先」意思是数据先存在你自己设备上，不是必须联网、必须传到别人服务器才能用，隐私和数据安全上更让人放心，就算以后不用这个 App 了，本地数据也还在自己手里。「WebDAV」是一种通用的网盘同步协议，很多网盘和自建服务都支持，可以用来在手机和电脑之间同步记账数据。",
-      "opinion": "学理财第一步通常是先搞清楚自己的钱花哪去了，记账是最基础也最实用的一步。这个 App 免费、不用绑定真实资金账户、也不涉及任何交易操作，纯粹是「记录+统计」，风险为零，适合现在就装上开始用。AI 记账功能省去手动分类的麻烦，但准不准还是要自己抽空核对一下。📱 手机上：直接就是 Android App，去 Releases 页面下载 apk 装上就行，不用 Termux，也不用折腾命令行。",
-      "install": [
-        {
-          "title": "安装步骤 · 📱 手机 Android",
-          "steps": [
-            { "text": "打开 [Releases 页面](https://github.com/TNT-Likely/BeeCount/releases)，在最新版本里下载文件名以 `.apk` 结尾的安装包" },
-            { "text": "打开下载好的 apk 文件安装；如果提示「禁止安装未知来源应用」，去系统设置里对这次安装临时放行一下" }
-          ],
-          "done": "打开 App 能看到记账首页，就是装好了；本地记账不用注册，想同步到其他设备再去设置里配置 WebDAV/iCloud/S3。"
-        }
-      ],
-      "url": "https://github.com/TNT-Likely/BeeCount"
-    },
-    {
-      "emoji": "🎨",
-      "repo": "bilawalsidhu/gods-eye-view",
-      "title": "打开浏览器就能玩的全球实时地球监控台",
-      "lang": "JavaScript",
-      "stars": "35,272",
-      "body": "这是个纯网页做的地球可视化项目，本周新增了 15,193 颗星，涨得非常猛。打开之后能看到一个可以自由缩放旋转的 3D 地球，上面实时叠加飞机、船只、卫星、地震、交通甚至公开摄像头的位置信息，还能切换成夜视、红外热成像这类视角，甚至能用语音控制。13 个数据源完全免费、不用任何密钥就能用，官方托管版还在开发中，目前需要自己在本地跑起来看。",
-      "explain": "项目底层用的是 CesiumJS（一个专门做三维地球可视化的开源引擎，不少航天、气象网站都在用）加 Vite（一个前端开发服务器工具），所以能在普通网页浏览器里流畅转动一个逼真的 3D 地球，不需要装任何专业地图软件。",
-      "opinion": "纯粹是个好玩涨见识的项目，跟开发工作关系不大，但拿来感受「原来免费公开数据能做到这个程度」挺有意思，运行起来也不复杂，花十分钟看看效果就行，不用深究代码。📱 手机上：本质是跑一个网页开发服务器，Termux 装好 Node.js 后能跑起来，再用手机自带浏览器打开网址看效果，3D 画面对手机性能要求不低，卡顿是正常现象；嫌麻烦的话直接在电脑上跑体验更流畅。",
-      "install": [
-        {
-          "title": "安装步骤 · 📱 手机 Termux",
-          "steps": [
-            { "text": "拉取代码（要连 GitHub，命令前面加了代理）：", "code": "https_proxy=http://127.0.0.1:7890 git clone https://github.com/bilawalsidhu/gods-eye-view.git" },
-            { "text": "进入目录装依赖：", "code": "cd gods-eye-view && npm ci" },
-            { "text": "跑起开发服务器：", "code": "npm run dev" },
-            { "text": "手机浏览器打开 http://localhost:4173 查看效果" }
-          ],
-          "done": "浏览器里能看到一个可以拖动旋转的 3D 地球，就是跑起来了；如果卡在某一步报错或者转不动，大概率是手机性能或网络问题，看个新鲜就好，不用较真。"
-        },
-        {
-          "title": "安装步骤 · 💻 电脑（Windows）",
-          "steps": [
-            { "text": "拉取代码（下载慢或失败就先开代理）：", "code": "git clone https://github.com/bilawalsidhu/gods-eye-view.git" },
-            { "text": "进入目录装依赖：", "code": "cd gods-eye-view; npm ci" },
-            { "text": "跑起开发服务器：", "code": "npm run dev" },
-            { "text": "浏览器打开 http://localhost:4173 查看效果" }
-          ],
-          "done": "浏览器里能看到一个可以拖动旋转的 3D 地球，就是跑起来了。"
-        }
-      ],
-      "url": "https://github.com/bilawalsidhu/gods-eye-view"
     }
   ]
 };
