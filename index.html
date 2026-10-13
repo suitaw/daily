@@ -626,26 +626,98 @@ async function loadDay(type, date) {
   return DAILY_DATA[key];
 }
 
-async function buildContext() {
+// ---------- 省 token：内容多时先让便宜模型按目录挑出相关的几条，只把这几条全文发给回答的模型 ----------
+const PICK_MODEL = 'deepseek/deepseek-v4.1-flash';
+const PICK_MIN = 6000;   // 全文不到这么多字就不挑，直接全发
+const PICK_MAX = 8;
+
+function orHeaders(key) {
+  return {
+    'Authorization': 'Bearer ' + key,
+    'Content-Type': 'application/json',
+    'HTTP-Referer': location.origin + location.pathname,
+    'X-OpenRouter-Title': 'Daily Digest',
+    'X-OpenRouter-App-Visibility': 'hidden'
+  };
+}
+
+// 范围内的所有条目：「全部日期」是所有天，「这一天」「这一条」是当天两个栏目
+async function scopeEntries() {
+  const out = [];
+  const add = (t, d) => d && d.items.forEach((it, i) => out.push({ t, d: d.date, i, it }));
   if (ai.scope === 'all') {
-    const parts = [];
     for (const t of Object.keys(TYPES)) {
-      const dates = DAILY_INDEX[t] || [];
-      const days = await Promise.all(dates.map(d => loadDay(t, d).catch(() => null)));
-      days.forEach(d => d && parts.push(fmtDay(t, d)));
+      const days = await Promise.all((DAILY_INDEX[t] || []).map(x => loadDay(t, x).catch(() => null)));
+      days.forEach(d => add(t, d));
     }
-    return parts.join('\n\n');
+  } else {
+    for (const t of dayTypes()) add(t, await loadDay(t, ai.date).catch(() => null));
   }
-  // 「这一天」「这一条」都带上当天两个栏目的全部内容：在资讯页打开也能问 GitHub 热门
-  const parts = [];
-  for (const t of dayTypes()) {
-    const d = await loadDay(t, ai.date).catch(() => null);
-    if (d) parts.push(fmtDay(t, d));
+  return out;
+}
+
+// 目录一行：标题 + 标签（+ 简介第一句）
+function catLine(e, n, brief) {
+  const tags = (e.it.deploy || []).map(k => DEPLOY[k] && DEPLOY[k][1]).filter(Boolean).join('/');
+  const first = brief ? '｜' + String(e.it.body || '').split(/[。！？\n]/)[0].slice(0, 50) : '';
+  return `[${n}] ${e.d} ${TYPES[e.t].name}：${e.t === 'github' ? e.it.repo + '：' : ''}${e.it.title}${tags ? '｜' + tags : ''}${first}`;
+}
+
+function fullText(es) {
+  return es.map(e => fmtItem(e.t, e.it, e.i).replace(/^【第 (\d+) 条】/, `【${e.d} ${TYPES[e.t].name} 第 $1 条】`)).join('\n\n');
+}
+
+// 让便宜模型挑条目，返回编号数组；失败返回 null
+async function pickEntries(entries, history, key) {
+  const q = [...history].reverse().find(m => m.role === 'user')?.content || '';
+  const recent = history.slice(-5, -1).map(m => (m.role === 'user' ? '用户：' : '助手：') + String(m.content).slice(0, 200)).join('\n');
+  const mine = /我/.test(q) ? [store.get('ghToken', '') && store.get('profileSync', ''), store.get('profile', '')].filter(Boolean).join('\n') : '';
+  const cat = entries.map((e, n) => catLine(e, n, ai.scope !== 'all')).join('\n');
+  const res = await fetch(API + '/chat/completions', {
+    method: 'POST',
+    signal: ai.ctrl.signal,
+    headers: orHeaders(key),
+    body: JSON.stringify({
+      model: PICK_MODEL,
+      max_tokens: 200,
+      messages: [
+        { role: 'system', content: `你是检索助手。根据用户的问题，从目录里挑出回答需要看全文的条目。只输出 JSON，例如 {"ids":[3,0,7]}：按相关度排序，最多 ${PICK_MAX} 个；问题是总结、推荐、「哪些适合我」这类需要通览的，就挑最相关的 ${PICK_MAX} 个；完全用不上目录内容就输出 {"ids":[]}。不要输出别的文字。` },
+        { role: 'user', content: (mine ? '提问的人：\n' + mine + '\n\n' : '') + '目录：\n' + cat + (recent ? '\n\n最近的对话：\n' + recent : '') + '\n\n问题：' + q }
+      ]
+    })
+  });
+  if (!res.ok) return null;
+  const j = await res.json().catch(() => null);
+  const txt = j?.choices?.[0]?.message?.content || '';
+  let ids;
+  try { ids = JSON.parse((txt.match(/\{[\s\S]*\}/) || [])[0]).ids; } catch (e) { return null; }
+  if (!Array.isArray(ids)) return null;
+  return { ids: [...new Set(ids.filter(n => Number.isInteger(n) && n >= 0 && n < entries.length))].slice(0, PICK_MAX), usage: j.usage };
+}
+
+// 返回 { ctx, pick }：pick 记录挑了几条（显示在回答下面），没挑就是 null
+async function buildContext(history, key) {
+  const entries = await scopeEntries();
+  if (ai.scope === 'item') {
+    const cur = entries.find(e => e.t === ai.type && e.i === ai.item);
+    const others = entries.filter(e => e !== cur);
+    return { pick: null, ctx: `（用户正在问的是：${ai.date} ${TYPES[ai.type].name}第 ${ai.item + 1} 条，回答围绕这一条）\n\n` + fullText([cur])
+      + (others.length ? '\n\n当天其他内容（只有标题，要细节可以请用户在那一条上点「问 AI」）：\n' + others.map((e, n) => catLine(e, n, true)).join('\n') : '') };
   }
-  if (ai.scope === 'day') return parts.join('\n\n');
-  const it = DAILY_DATA[`${ai.type}/${ai.date}`].items[ai.item];
-  return `（用户正在问的是：${ai.date} ${TYPES[ai.type].name}第 ${ai.item + 1} 条「${ai.type === 'github' ? it.repo + '：' : ''}${it.title}」，`
-    + `回答围绕这一条；当天其他内容供参考）\n\n` + parts.join('\n\n');
+  const all = fullText(entries);
+  if (all.length <= PICK_MIN) return { pick: null, ctx: all };
+  const p = await pickEntries(entries, history, key).catch(e => { if (e.name === 'AbortError') throw e; return null; });
+  if (!p) {
+    // 挑选失败：「这一天」退回全发；「全部日期」全发太贵，只发目录
+    return ai.scope === 'all'
+      ? { pick: { n: 0, total: entries.length, failed: true }, ctx: '（挑选相关内容失败，下面只有全部条目的标题目录）\n' + entries.map((e, n) => catLine(e, n, false)).join('\n') }
+      : { pick: { n: entries.length, total: entries.length, failed: true }, ctx: all };
+  }
+  const picked = p.ids.map(n => entries[n]);
+  const head = ai.scope === 'all'
+    ? `（共 ${entries.length} 条内容，下面是按问题挑出的 ${picked.length} 条全文。如果用户问的东西不在里面，请他换个说法或者点开那一天再问）`
+    : `当天全部条目（目录）：\n${entries.map((e, n) => catLine(e, n, true)).join('\n')}\n\n（下面是按问题挑出的 ${picked.length} 条全文，其他条目只有上面的目录）`;
+  return { pick: { n: picked.length, total: entries.length, usage: p.usage }, ctx: head + '\n\n' + fullText(picked) };
 }
 
 // 当天有哪些栏目，当前栏目排前面
@@ -749,12 +821,12 @@ function ctxLabel() {
   const name = TYPES[ai.type].name;
   if (ai.scope === 'all') {
     const n = t => (DAILY_INDEX[t] || []).length;
-    return `📚 全部 ${n('news')} 天 AI 资讯 + ${n('github')} 天 GitHub 热门（内容多，每问一次花费会高一些）`;
+    return `📚 全部 ${n('news')} 天 AI 资讯 + ${n('github')} 天 GitHub 热门（内容多，会先挑出和问题相关的几条再回答）`;
   }
   const both = dayTypes().map(t => TYPES[t].name).join(' + ');
   if (ai.scope === 'day') return `📅 ${ai.date} 当天全部：${both}`;
   const it = DAILY_DATA[`${ai.type}/${ai.date}`]?.items?.[ai.item];
-  return `📌 ${name}第 ${ai.item + 1} 条：${it ? (ai.type === 'github' ? it.repo : it.title) : ''}（也能看到当天的${both}）`;
+  return `📌 ${name}第 ${ai.item + 1} 条：${it ? (ai.type === 'github' ? it.repo : it.title) : ''}（当天其他条目只带标题）`;
 }
 
 function suggestions() {
@@ -820,6 +892,8 @@ function renderMsgs() {
   list.scrollTop = list.scrollHeight;
 }
 
+function money4(c) { return c < 0.0001 && c > 0 ? c.toExponential(1) : c.toFixed(4); }
+
 function msgHtml(m, idx) {
   if (m.role === 'user') return `<div class="msg me"><div class="bubble">${esc(m.content)}</div></div>`;
   const last = idx === ai.msgs.length - 1;
@@ -827,7 +901,8 @@ function msgHtml(m, idx) {
   const meta = [
     m.model ? m.model.split('/').pop() : '',
     u ? `${u.prompt_tokens ?? '?'} + ${u.completion_tokens ?? '?'} tokens` : '',
-    u && typeof u.cost === 'number' ? '$' + (u.cost < 0.0001 && u.cost > 0 ? u.cost.toExponential(1) : u.cost.toFixed(4)) : '',
+    u && typeof u.cost === 'number' ? '$' + money4(u.cost + (m.pick?.usage?.cost || 0)) : '',
+    m.pick ? (m.pick.failed ? '⚠️ 挑选失败' + (m.pick.n ? '，发了全文' : '，只看了目录') : `📎 参考 ${m.pick.n}/${m.pick.total} 条`) : '',
     u?.server_tool_use?.web_search_requests ? `🌐 搜了 ${u.server_tool_use.web_search_requests} 次` : '',
     m.stopped ? '已停止' : '',
     m.finish === 'length' ? '⚠️ 回答太长被截断了' : ''
@@ -925,17 +1000,12 @@ async function answer() {
 
   try {
     await syncProfile();
-    const ctx = await buildContext();
+    const { ctx, pick } = await buildContext(history, key);
+    if (pick) msg.pick = pick;
     const res = await fetch(API + '/chat/completions', {
       method: 'POST',
       signal: ai.ctrl.signal,
-      headers: {
-        'Authorization': 'Bearer ' + key,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': location.origin + location.pathname,
-        'X-OpenRouter-Title': 'Daily Digest',
-        'X-OpenRouter-App-Visibility': 'hidden'
-      },
+      headers: orHeaders(key),
       body: JSON.stringify({
         model,
         stream: true,
