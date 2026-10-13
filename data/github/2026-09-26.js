@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-26"] = {
     {
       "emoji": "🤖",
       "repo": "anthropics/claude-plugins-official",
+      "deploy": ["phone", "pc"],
       "title": "官方插件市场上线，一条命令给Claude Code装技能",
       "lang": "Python",
       "stars": "36,935",
@@ -27,6 +28,7 @@ DAILY_DATA["github/2026-09-26"] = {
     {
       "emoji": "🤖",
       "repo": "Fission-AI/OpenSpec",
+      "deploy": ["phone", "pc"],
       "title": "先写规范再动手写代码的AI辅助开发工具",
       "lang": "TypeScript",
       "stars": "70,368",
@@ -51,6 +53,7 @@ DAILY_DATA["github/2026-09-26"] = {
     {
       "emoji": "🤖",
       "repo": "addyosmani/agent-skills",
+      "deploy": ["phone", "pc"],
       "title": "25个AI编码Agent工程技能包，装给Claude Code用",
       "lang": "JavaScript",
       "stars": "99,080",
@@ -73,6 +76,7 @@ DAILY_DATA["github/2026-09-26"] = {
     {
       "emoji": "🤖",
       "repo": "cline/cline",
+      "deploy": ["pc"],
       "title": "开源自主编码Agent，VS Code插件/命令行都能用",
       "lang": "TypeScript",
       "stars": "69,326",
@@ -103,6 +107,7 @@ DAILY_DATA["github/2026-09-26"] = {
     {
       "emoji": "📚",
       "repo": "bojieli/ai-agent-book",
+      "deploy": ["read"],
       "title": "《深入理解AI Agent》，免费开源电子书",
       "lang": "Python",
       "stars": "50,997",

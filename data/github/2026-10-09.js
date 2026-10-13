@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-09"] = {
     {
       "emoji": "🤖",
       "repo": "mattpocock/skills",
+      "deploy": ["phone", "pc"],
       "title": "给 Claude Code 装一整套工程师技能",
       "lang": "Shell",
       "stars": "281,069",
@@ -40,6 +41,7 @@ DAILY_DATA["github/2026-10-09"] = {
     {
       "emoji": "📚",
       "repo": "krahets/hello-algo",
+      "deploy": ["read"],
       "title": "图解数据结构与算法，入门教程",
       "stars": "130,461",
       "today": "30",
@@ -61,6 +63,7 @@ DAILY_DATA["github/2026-10-09"] = {
     {
       "emoji": "📚",
       "repo": "ryanhanwu/How-To-Ask-Questions-The-Smart-Way",
+      "deploy": ["read"],
       "title": "经典文章：怎么提问才有人愿意答",
       "stars": "35,857",
       "today": "11",
@@ -81,6 +84,7 @@ DAILY_DATA["github/2026-10-09"] = {
     {
       "emoji": "🛠",
       "repo": "hiroi-sora/Umi-OCR",
+      "deploy": ["pc"],
       "title": "免费离线OCR，截图转文字",
       "lang": "Python",
       "stars": "47,690",
@@ -105,6 +109,7 @@ DAILY_DATA["github/2026-10-09"] = {
     {
       "emoji": "💰",
       "repo": "mayswind/ezbookkeeping",
+      "deploy": ["pc", "cloud"],
       "title": "自建记账App，带AI识别小票",
       "stars": "5.7k",
       "body": "一款开源、可自托管的记账 App，支持记流水、分类统计、图表分析、多币种，还带几个 AI 相关功能：拍小票自动识别金额和项目、用自然语言生成自定义图表、支持 MCP（可以接到 AI 工具里查账本）。支持 Docker 一键跑，也有官方编译好的二进制直接运行，数据存在自己的机器上。",

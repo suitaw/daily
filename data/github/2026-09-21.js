@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-21"] = {
     {
       "emoji": "🤖",
       "repo": "AstrBotDevs/AstrBot",
+      "deploy": ["pc", "cloud"],
       "title": "一站式AI Agent聊天机器人平台，一次接好多个IM和LLM",
       "lang": "Python",
       "stars": "40,739",
@@ -30,6 +31,7 @@ DAILY_DATA["github/2026-09-21"] = {
     {
       "emoji": "🛠",
       "repo": "XIU2/CloudflareSpeedTest",
+      "deploy": ["phone", "pc"],
       "title": "测出访问Cloudflare最快的IP，给你现在的代理提速",
       "lang": "Go",
       "stars": "29,102",
@@ -61,6 +63,7 @@ DAILY_DATA["github/2026-09-21"] = {
     {
       "emoji": "🛠",
       "repo": "xifangczy/cat-catch",
+      "deploy": ["phone", "pc"],
       "title": "网页资源嗅探扩展，自动扒出页面里的视频图片直链",
       "lang": "JavaScript",
       "stars": "21,958",
@@ -93,6 +96,7 @@ DAILY_DATA["github/2026-09-21"] = {
     {
       "emoji": "💰",
       "repo": "Open-Dev-Society/OpenStock",
+      "deploy": ["phone", "pc", "cloud"],
       "title": "开源股票行情看板，自选股加价格提醒，不碰真钱",
       "lang": "TypeScript",
       "stars": "16,818",
@@ -117,6 +121,7 @@ DAILY_DATA["github/2026-09-21"] = {
     {
       "emoji": "💰",
       "repo": "actualbudget/actual",
+      "deploy": ["pc", "cloud"],
       "title": "信封预算法记账App，数据存本地不用上传",
       "lang": "JavaScript",
       "stars": "29,000+",

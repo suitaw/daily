@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-25"] = {
     {
       "emoji": "🤖",
       "repo": "HKUDS/CLI-Anything",
+      "deploy": ["pc"],
       "title": "把专业软件包成命令行，AI智能体能直接调用",
       "lang": "Python",
       "stars": "50,330",
@@ -30,6 +31,7 @@ DAILY_DATA["github/2026-09-25"] = {
     {
       "emoji": "📚",
       "repo": "rohitg00/ai-engineering-from-scratch",
+      "deploy": ["read"],
       "title": "从数学到大模型、Agent的免费系统教程",
       "lang": "Python",
       "stars": "56,543",
@@ -52,6 +54,7 @@ DAILY_DATA["github/2026-09-25"] = {
     {
       "emoji": "🛠",
       "repo": "hiroi-sora/Umi-OCR",
+      "deploy": ["pc"],
       "title": "免费离线OCR，截图识字、批量转文字",
       "lang": "Python",
       "stars": "47,488",
@@ -75,6 +78,7 @@ DAILY_DATA["github/2026-09-25"] = {
     {
       "emoji": "📚",
       "repo": "jaywcjlove/linux-command",
+      "deploy": ["read"],
       "title": "600多个Linux命令速查手册",
       "lang": "Markdown",
       "stars": "36,959",
@@ -96,6 +100,7 @@ DAILY_DATA["github/2026-09-25"] = {
     {
       "emoji": "💰",
       "repo": "xiaojinzi123/yike-app",
+      "deploy": ["phone"],
       "title": "开源记账App，本地存储不用联网登录",
       "lang": "Kotlin",
       "stars": "468",
@@ -117,6 +122,7 @@ DAILY_DATA["github/2026-09-25"] = {
     {
       "emoji": "🎨",
       "repo": "ScottSloan/Bili23-Downloader",
+      "deploy": ["pc"],
       "title": "开源B站视频下载器，支持画质选择和弹幕",
       "lang": "Python",
       "stars": "7,715",

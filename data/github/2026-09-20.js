@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-20"] = {
     {
       "emoji": "🤖",
       "repo": "Panniantong/agent-reach",
+      "deploy": ["phone", "pc"],
       "title": "让Claude Code这类AI Agent能读推特、B站、Reddit等全网内容",
       "lang": "Python",
       "stars": "83,458",
@@ -27,6 +28,7 @@ DAILY_DATA["github/2026-09-20"] = {
     {
       "emoji": "🤖",
       "repo": "microsoft/markitdown",
+      "deploy": ["phone", "pc"],
       "title": "把PDF、Word、PPT等文件一键转成干净的Markdown文本",
       "lang": "Python",
       "stars": "185,656",
@@ -49,6 +51,7 @@ DAILY_DATA["github/2026-09-20"] = {
     {
       "emoji": "🛠",
       "repo": "alibaba/open-code-review",
+      "deploy": ["pc"],
       "title": "本地一行命令，让AI帮你审查代码里的bug和安全问题",
       "lang": "Go",
       "stars": "37,551",
@@ -72,6 +75,7 @@ DAILY_DATA["github/2026-09-20"] = {
     {
       "emoji": "🛠",
       "repo": "asciimoo/hister",
+      "deploy": ["pc"],
       "title": "给自己搭一个只搜浏览记录和本地文件的私人搜索引擎",
       "lang": "Go",
       "stars": "5,225",
@@ -95,6 +99,7 @@ DAILY_DATA["github/2026-09-20"] = {
     {
       "emoji": "🎨",
       "repo": "bilawalsidhu/gods-eye-view",
+      "deploy": ["pc"],
       "title": "打开浏览器看实时卫星、飞机、船只的3D地球模拟器",
       "lang": "JavaScript",
       "stars": "38,624",
@@ -119,6 +124,7 @@ DAILY_DATA["github/2026-09-20"] = {
     {
       "emoji": "💰",
       "repo": "TNT-Likely/BeeCount",
+      "deploy": ["phone", "pc", "cloud"],
       "title": "本地记账App，数据存手机本地，不联网也能用",
       "lang": "Dart",
       "stars": "2,400+",

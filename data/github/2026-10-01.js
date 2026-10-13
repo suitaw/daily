@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-01"] = {
     {
       "emoji": "🤖",
       "repo": "modelcontextprotocol/servers",
+      "deploy": ["phone", "pc"],
       "title": "官方 MCP 服务器合集，接到 Claude Code 里直接用",
       "lang": "TypeScript",
       "stars": "90,811",
@@ -28,6 +29,7 @@ DAILY_DATA["github/2026-10-01"] = {
     {
       "emoji": "🛠",
       "repo": "davila7/claude-code-templates",
+      "deploy": ["phone", "pc"],
       "title": "一条命令给 Claude Code 装现成的命令、MCP，还能看用量",
       "stars": "32,239",
       "week": "914",
@@ -51,6 +53,7 @@ DAILY_DATA["github/2026-10-01"] = {
     {
       "emoji": "🛠",
       "repo": "hiroi-sora/Umi-OCR",
+      "deploy": ["pc"],
       "title": "图片文字一键提取，完全离线免费的 OCR 工具",
       "stars": "47,559",
       "today": "8",
@@ -74,6 +77,7 @@ DAILY_DATA["github/2026-10-01"] = {
     {
       "emoji": "📚",
       "repo": "krahets/hello-algo",
+      "deploy": ["read"],
       "title": "动画图解数据结构与算法，代码能直接在网页跑",
       "lang": "Java",
       "stars": "130,557",
@@ -96,6 +100,7 @@ DAILY_DATA["github/2026-10-01"] = {
     {
       "emoji": "💰",
       "repo": "actualbudget/actual",
+      "deploy": ["pc", "cloud"],
       "title": "本地跑的「信封记账法」预算软件，数据不传云端",
       "body": "`Actual Budget` 是一款完全免费开源的本地记账/预算软件，用「信封预算法」帮你把每一笔钱提前分配好用途，有 Windows/Mac/Linux 桌面版，也能自己搭网页版。\n数据存在自己设备本地，不用注册账号，也不连接真实银行账户。",
       "explain": "「信封预算法」是一种老式理财思路：发工资先把钱按用途（房租、吃饭、娱乐……）分进不同「信封」，花钱前先看对应信封还剩多少，比记完一堆流水账才发现超支，更容易管住自己的手。",

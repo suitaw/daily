@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-05"] = {
     {
       "emoji": "🤖",
       "repo": "Panniantong/Agent-Reach",
+      "deploy": ["pc"],
       "title": "让AI Agent直接刷推特、看YouTube、搜小红书",
       "lang": "Python",
       "stars": "90,878",
@@ -39,6 +40,7 @@ DAILY_DATA["github/2026-10-05"] = {
     {
       "emoji": "🤖",
       "repo": "langbot-app/LangBot",
+      "deploy": ["pc", "cloud"],
       "title": "一句命令搭个支持DeepSeek的AI聊天机器人",
       "lang": "Python",
       "stars": "18,003",
@@ -62,6 +64,7 @@ DAILY_DATA["github/2026-10-05"] = {
     {
       "emoji": "📚",
       "repo": "rohitg00/ai-engineering-from-scratch",
+      "deploy": ["read"],
       "title": "523节课从数学基础学到能上线的AI工程",
       "lang": "Python",
       "stars": "63,916",
@@ -91,6 +94,7 @@ DAILY_DATA["github/2026-10-05"] = {
     {
       "emoji": "🛠",
       "repo": "hoothin/SearchJumper",
+      "deploy": ["phone", "pc"],
       "title": "右键选中文字，一键换到任意搜索引擎搜",
       "lang": "JavaScript",
       "stars": "1,158",
@@ -113,6 +117,7 @@ DAILY_DATA["github/2026-10-05"] = {
     {
       "emoji": "🎨",
       "repo": "OpenCut-app/OpenCut",
+      "deploy": ["phone", "pc"],
       "title": "开源的CapCut替代品，剪视频不用装App",
       "lang": "TypeScript",
       "stars": "92,138",

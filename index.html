@@ -64,6 +64,18 @@ h1{font-size:20px;margin:0 0 8px;display:flex;align-items:center;gap:8px}
 .card h2{font-size:18px;line-height:1.5;margin:0 0 6px}
 .meta{color:var(--sub);font-size:14px;margin-bottom:6px}
 .meta code{font-size:13px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 8px}
+.tag{font-size:13px;line-height:1.4;padding:2px 8px;border-radius:10px;background:var(--accent-bg);color:var(--accent);white-space:nowrap}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin:-4px 0 12px}
+.datebar[hidden]+.filters{margin-top:14px}
+.filters[hidden],.datebar[hidden]{display:none}
+.filters button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--sub);border-radius:16px;
+  height:32px;padding:0 12px;font-size:14px;cursor:pointer;font-family:inherit}
+.filters button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);font-weight:600}
+.dayhead{color:var(--sub);font-size:14px;font-weight:600;margin:20px 0 -6px}
+.fsum{color:var(--sub);font-size:14px;margin:0 0 4px}
+.more{margin-top:8px}
+.more summary{color:var(--accent);font-size:14px;cursor:pointer;padding:4px 0}
 .card p{margin:8px 0}
 code{background:var(--code-bg);border-radius:4px;padding:1px 5px;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
 .install{border-top:1px dashed var(--line);margin-top:12px;padding-top:8px}
@@ -183,6 +195,7 @@ body.ai-open{overflow:hidden}
     <select id="dates" aria-label="选择日期"></select>
     <button id="next" aria-label="后一天">›</button>
   </div>
+  <div class="filters" id="filters" hidden></div>
   <div id="view"><div class="empty">加载中…</div></div>
 </main>
 <button class="top" id="top" aria-label="回到顶部">↑</button>
@@ -277,7 +290,17 @@ function renderNewsItem(it, i) {
   </article>`;
 }
 
-function renderGithubItem(it, i) {
+// 能装在哪：数据里的 deploy 字段（含义见仓库 CLAUDE.md）
+const DEPLOY = {
+  phone: ['📱', '手机能用'],
+  pc:    ['💻', '电脑'],
+  cloud: ['☁️', '云服务器'],
+  read:  ['📖', '不用装']
+};
+
+// date：这条属于哪一天（跨日期筛选时每条不同）；n：显示的序号
+function renderGithubItem(it, i, date = cur.date, n = i + 1, fold = false) {
+  const tags = (it.deploy || []).filter(k => DEPLOY[k]).map(k => `<span class="tag">${DEPLOY[k].join(' ')}</span>`).join('');
   const meta = [
     it.lang ? `<code>${esc(it.lang)}</code>` : '',
     it.stars ? `⭐ ${esc(it.stars)}` : '',
@@ -297,14 +320,17 @@ function renderGithubItem(it, i) {
     </div>`).join('');
   const url = it.url || ('https://github.com/' + it.repo);
   return `<article class="card" id="item-${i}">
-    <h2>${esc(it.emoji || '')} ${i + 1}. ${esc(it.repo)}：${inline(it.title)}</h2>
+    <h2>${esc(it.emoji || '')} ${n}. ${esc(it.repo)}：${inline(it.title)}</h2>
+    ${tags ? `<div class="tags">${tags}</div>` : ''}
     ${meta ? `<div class="meta">${meta}</div>` : ''}
     ${paras(it.body)}
+    ${fold ? '<details class="more"><summary>展开背景、看法和安装步骤</summary>' : ''}
     ${box('explain', '📘', '看不懂？先补点背景', it.explain)}
     ${box('opinion', '💡', '我的看法', it.opinion)}
     ${install}
+    ${fold ? '</details>' : ''}
     <div class="sources">🔗 <a href="${esc(url)}" target="_blank" rel="noopener">GitHub 仓库 ↗</a></div>
-    <div class="askrow"><button class="ask" data-i="${i}">🤖 问 AI 这一条</button></div>
+    <div class="askrow"><button class="ask" data-i="${i}" data-d="${esc(date)}">🤖 问 AI 这一条</button></div>
   </article>`;
 }
 
@@ -315,10 +341,48 @@ function renderDay(d) {
   return `
     ${box('hot', '🔥', '今日看点', d.highlight)}
     <nav class="toc">${toc}</nav>
-    ${items.map(isGh ? renderGithubItem : renderNewsItem).join('')}
+    ${items.map((it, i) => isGh ? renderGithubItem(it, i) : renderNewsItem(it, i)).join('')}
     <div class="foot">${esc(d.note || (isGh
       ? '由 AI 根据 GitHub 热门榜自动整理，「背景」和「看法」是 AI 的解读；星数为抓取时的数据。安装前先看项目 README，别在不了解的程序里填 API key 或私钥。'
       : '由 AI 根据公开报道自动整理，「背景」和「看法」是 AI 的解读，不是新闻原文；数字以原文为准。'))}</div>`;
+}
+
+function renderFilters() {
+  const el = document.getElementById('filters');
+  el.hidden = cur.type !== 'github';
+  el.innerHTML = `<button data-f="" class="${cur.filter ? '' : 'on'}">按日期看</button>` +
+    Object.entries(DEPLOY).map(([k, [ic, name]]) => `<button data-f="${k}" class="${cur.filter === k ? 'on' : ''}">${ic} ${name}</button>`).join('');
+}
+
+// 跨日期筛选：把所有日期里 deploy 含这一项的项目列出来，同一个仓库只留最新那天
+async function showFilter(f, push) {
+  const view = document.getElementById('view');
+  const list = DAILY_INDEX.github || [];
+  const hash = `#github/@${f}`;
+  if (push && location.hash !== hash) history.pushState(null, '', hash);
+  document.title = `${DEPLOY[f].join(' ')} · GitHub 热门 · 每日速递`;
+  view.innerHTML = '<div class="empty">正在汇总全部日期…</div>';
+  const res = await Promise.allSettled(list.map(d => loadDay('github', d)));
+  if (cur.filter !== f || cur.type !== 'github') return; // 加载期间又切走了
+  const seen = new Set();
+  const groups = [];
+  let n = 0;
+  list.forEach(d => {
+    const day = DAILY_DATA[`github/${d}`];
+    if (!day) return;
+    const hit = [];
+    day.items.forEach((it, i) => {
+      if (!(it.deploy || []).includes(f) || seen.has(it.repo)) return;
+      seen.add(it.repo);
+      hit.push(renderGithubItem(it, i, d, ++n, true));
+    });
+    if (hit.length) groups.push(`<div class="dayhead">📅 ${d}</div>` + hit.join(''));
+  });
+  const failed = res.filter(r => r.status === 'rejected').length;
+  view.innerHTML = `<div class="fsum">${DEPLOY[f].join(' ')}：${list.length} 天里共 ${n} 个项目（重复推荐过的只算一次）${failed ? `，有 ${failed} 天没加载出来` : ''}</div>` +
+    (groups.join('') || '<div class="empty">没有符合的项目</div>') +
+    `<div class="foot">标签是 AI 读 README 后的判断，📱 指在 Termux / 安卓 App / 手机浏览器里大概率能用；装之前还是看一眼每条的「📱 手机上」说明。</div>`;
+  window.scrollTo(0, 0);
 }
 
 async function show(type, date, push) {
@@ -328,6 +392,11 @@ async function show(type, date, push) {
   const view = document.getElementById('view');
   const list = DAILY_INDEX[cur.type] || [];
   if (!list.length) { view.innerHTML = '<div class="empty">还没有内容</div>'; return; }
+  const f = cur.type === 'github' && /^@/.test(date || '') ? date.slice(1) : '';
+  cur.filter = DEPLOY[f] ? f : '';
+  renderFilters();
+  document.querySelector('.datebar').hidden = !!cur.filter;
+  if (cur.filter) { cur.date = list[0]; return showFilter(cur.filter, push); }
   cur.date = list.includes(date) ? date : list[0];
 
   const sel = document.getElementById('dates');
@@ -347,7 +416,7 @@ async function show(type, date, push) {
     try { await loadScript(`data/${key}.js`); }
     catch (e) { view.innerHTML = `<div class="empty">${esc(e.message)}</div>`; return; }
   }
-  if (`${cur.type}/${cur.date}` !== key) return; // 加载期间又切走了
+  if (`${cur.type}/${cur.date}` !== key || cur.filter) return; // 加载期间又切走了
   view.innerHTML = renderDay(DAILY_DATA[key]);
   window.scrollTo(0, 0);
 }
@@ -358,7 +427,11 @@ function fromHash() {
 }
 
 document.querySelectorAll('.tab').forEach(b => b.onclick = () => show(b.dataset.t, null, true));
-document.getElementById('dates').onchange = e => show(cur.type, e.target.value, true);
+document.getElementById('filters').onclick = e => {
+  const b = e.target.closest('button');
+  if (b) show('github', b.dataset.f ? '@' + b.dataset.f : null, true);
+};
+document.getElementById('dates').onchange =e => show(cur.type, e.target.value, true);
 document.getElementById('prev').onclick = () => { const l = DAILY_INDEX[cur.type]; show(cur.type, l[l.indexOf(cur.date) + 1], true); };
 document.getElementById('next').onclick = () => { const l = DAILY_INDEX[cur.type]; show(cur.type, l[l.indexOf(cur.date) - 1], true); };
 window.onpopstate = () => {
@@ -376,7 +449,7 @@ document.getElementById('view').addEventListener('click', e => {
     return;
   }
   const ask = e.target.closest('.ask');
-  if (ask) { openAI(+ask.dataset.i); return; }
+  if (ask) { openAI(+ask.dataset.i, ask.dataset.d); return; }
   const btn = e.target.closest('.copy');
   if (btn) copyText(btn.nextElementSibling.textContent, btn);
 });
@@ -615,10 +688,10 @@ function saveChat() {
   if (msgs.length) store.set(chatKey(), msgs); else store.del(chatKey());
 }
 
-function openAI(item) {
+function openAI(item, date) {
   if (ai.busy) { showPanel(); return; }
   ai.type = cur.type;
-  ai.date = cur.date;
+  ai.date = date || cur.date;
   ai.item = Number.isInteger(item) ? item : null;
   if (!ai.date) return;
   ai.scope = ai.item === null ? 'day' : 'item';

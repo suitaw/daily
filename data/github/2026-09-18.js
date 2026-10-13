@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-18"] = {
     {
       "emoji": "🤖",
       "repo": "Tencent/BrowserSkill",
+      "deploy": ["pc"],
       "title": "让 AI 代理直接操作你电脑上已登录的浏览器",
       "lang": "TypeScript",
       "stars": "4,114",
@@ -29,6 +30,7 @@ DAILY_DATA["github/2026-09-18"] = {
     {
       "emoji": "🤖",
       "repo": "cline/cline",
+      "deploy": ["pc"],
       "title": "VS Code 里的自主编程 AI，能接 DeepSeek 省钱",
       "lang": "TypeScript",
       "stars": "68,551",
@@ -52,6 +54,7 @@ DAILY_DATA["github/2026-09-18"] = {
     {
       "emoji": "🛠",
       "repo": "danny-avila/LibreChat",
+      "deploy": ["pc", "cloud"],
       "title": "一个网页整合 DeepSeek、豆包等大模型对话",
       "lang": "TypeScript",
       "stars": "44,235",
@@ -77,6 +80,7 @@ DAILY_DATA["github/2026-09-18"] = {
     {
       "emoji": "🛠",
       "repo": "decolua/9router",
+      "deploy": ["phone", "pc"],
       "title": "帮 AI 编程工具省 token，还能白嫖免费模型",
       "lang": "JavaScript",
       "stars": "29,173",
@@ -102,6 +106,7 @@ DAILY_DATA["github/2026-09-18"] = {
     {
       "emoji": "📚",
       "repo": "datawhalechina/thorough-pytorch",
+      "deploy": ["read"],
       "title": "中文 PyTorch 教程，能衔接你正在学的 Python",
       "stars": "3.8k",
       "body": "这是 Datawhale 团队出的中文 PyTorch 教程，从环境搭建、张量运算讲到怎么搭模型、怎么训练，一共十章，配套 B 站视频。教程本身是 Markdown 文档，托管成了可以直接在浏览器里翻页阅读的网站，不用装 Python 环境也能看。",
@@ -121,6 +126,7 @@ DAILY_DATA["github/2026-09-18"] = {
     {
       "emoji": "🎨",
       "repo": "jamiepine/voicebox",
+      "deploy": ["pc"],
       "title": "语音输入到任意软件的听写神器，还能克隆声音",
       "lang": "TypeScript",
       "stars": "54,843",

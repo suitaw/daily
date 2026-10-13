@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-08"] = {
     {
       "emoji": "🤖",
       "repo": "addyosmani/agent-skills",
+      "deploy": ["phone", "pc"],
       "title": "给 Claude Code 装一套资深工程师技能包",
       "lang": "JavaScript",
       "stars": "102,808",
@@ -36,6 +37,7 @@ DAILY_DATA["github/2026-10-08"] = {
     {
       "emoji": "🤖",
       "repo": "cloudflare/security-audit-skill",
+      "deploy": ["phone", "pc"],
       "title": "给 Claude Code 装一个安全审计员技能",
       "lang": "JavaScript",
       "stars": "26,048",
@@ -67,6 +69,7 @@ DAILY_DATA["github/2026-10-08"] = {
     {
       "emoji": "🛠",
       "repo": "immersive-translate/immersive-translate",
+      "deploy": ["phone", "pc"],
       "title": "浏览器装一个双语网页翻译",
       "stars": "19,218",
       "today": "19",
@@ -89,6 +92,7 @@ DAILY_DATA["github/2026-10-08"] = {
     {
       "emoji": "🛠",
       "repo": "pablostanley/yoinks",
+      "deploy": ["phone", "pc"],
       "title": "终端下视频，不用看广告",
       "lang": "TypeScript",
       "stars": "5,098",
@@ -113,6 +117,7 @@ DAILY_DATA["github/2026-10-08"] = {
     {
       "emoji": "💰",
       "repo": "sngyai/Sequoia-X",
+      "deploy": ["pc", "cloud"],
       "title": "开源A股选股脚本，收盘自动推送",
       "lang": "Python",
       "stars": "7,937",
@@ -139,6 +144,7 @@ DAILY_DATA["github/2026-10-08"] = {
     {
       "emoji": "📚",
       "repo": "wanglin2/mind-map",
+      "deploy": ["phone", "pc"],
       "title": "免费思维导图工具，整理学习笔记",
       "lang": "JavaScript",
       "stars": "12,797",
@@ -160,6 +166,7 @@ DAILY_DATA["github/2026-10-08"] = {
     {
       "emoji": "🎨",
       "repo": "LorisYounger/VPet",
+      "deploy": ["pc"],
       "title": "开源桌宠，挂在电脑上暖场",
       "lang": "C#",
       "stars": "6,892",

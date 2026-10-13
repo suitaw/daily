@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-19"] = {
     {
       "emoji": "🤖",
       "repo": "Tencent/BrowserSkill",
+      "deploy": ["pc"],
       "title": "让Claude Code等AI编程工具直接操作你电脑上已登录的浏览器",
       "lang": "Rust",
       "stars": "5,289",
@@ -28,6 +29,7 @@ DAILY_DATA["github/2026-09-19"] = {
     {
       "emoji": "🤖",
       "repo": "supermemoryai/supermemory",
+      "deploy": ["pc", "cloud"],
       "title": "给你的AI工具装一个记忆库，记住用户偏好和历史信息",
       "lang": "TypeScript",
       "stars": "30,275",
@@ -51,6 +53,7 @@ DAILY_DATA["github/2026-09-19"] = {
     {
       "emoji": "🛠",
       "repo": "ahmedkhaleel2004/gitdiagram",
+      "deploy": ["phone", "pc"],
       "title": "把任何GitHub仓库变成一张能点开看的架构图",
       "lang": "TypeScript",
       "stars": "16,466",
@@ -73,6 +76,7 @@ DAILY_DATA["github/2026-09-19"] = {
     {
       "emoji": "📚",
       "repo": "521xueweihan/HelloGitHub",
+      "deploy": ["read"],
       "title": "每月一期，专挑「有趣又好上手」的开源项目介绍给新手",
       "lang": "Python",
       "stars": "177,362",
@@ -94,6 +98,7 @@ DAILY_DATA["github/2026-09-19"] = {
     {
       "emoji": "💰",
       "repo": "glink25/Cent",
+      "deploy": ["phone", "pc"],
       "title": "用自己的GitHub账号登录就能用的免费记账App，数据存在自己仓库里",
       "stars": "1,200+",
       "body": "Cent 是一个完全免费开源的记账网页应用，特别的地方是它不需要单独的服务器——账本数据直接存在你自己的GitHub（或Gitee）私有仓库里，自己的数据自己保管，换设备登录同一个GitHub账号就能同步，也支持多人协作记一本账。",

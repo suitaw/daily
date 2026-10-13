@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-23"] = {
     {
       "emoji": "🛠",
       "repo": "davila7/claude-code-templates",
+      "deploy": ["phone", "pc"],
       "title": "一键给Claude Code装现成配置模板",
       "stars": "31,120",
       "today": "64",
@@ -29,6 +30,7 @@ DAILY_DATA["github/2026-09-23"] = {
     {
       "emoji": "🤖",
       "repo": "RapidAI/RapidOCR",
+      "deploy": ["pc"],
       "title": "免费开源OCR，让程序读懂图片里的文字",
       "lang": "Python",
       "stars": "7,926",
@@ -59,6 +61,7 @@ DAILY_DATA["github/2026-09-23"] = {
     {
       "emoji": "🤖",
       "repo": "TencentCloud/Octop",
+      "deploy": ["pc", "cloud"],
       "title": "自己搭一个能连飞书/QQ的AI助手后台",
       "lang": "Python",
       "stars": "4,634",
@@ -91,6 +94,7 @@ DAILY_DATA["github/2026-09-23"] = {
     {
       "emoji": "📚",
       "repo": "ruanyf/weekly",
+      "deploy": ["read"],
       "title": "每周五更新的科技资讯合集，AI理财话题都有",
       "stars": "104,462",
       "today": "622",
@@ -112,6 +116,7 @@ DAILY_DATA["github/2026-09-23"] = {
     {
       "emoji": "📚",
       "repo": "d2l-ai/d2l-zh",
+      "deploy": ["read"],
       "title": "免费中文深度学习教材，能跑代码那种",
       "lang": "Python",
       "stars": "81,021",

@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-11"] = {
     {
       "emoji": "🤖",
       "repo": "AstrBotDevs/AstrBot",
+      "deploy": ["pc", "cloud"],
       "title": "把大模型接到 QQ、微信、Telegram 上做聊天机器人的框架",
       "lang": "Python",
       "stars": "40,348",
@@ -41,6 +42,7 @@ DAILY_DATA["github/2026-09-11"] = {
     {
       "emoji": "🤖",
       "repo": "vercel-labs/skills",
+      "deploy": ["phone", "pc"],
       "title": "一条 npx 命令给 AI 编程助手装「技能包」",
       "lang": "TypeScript",
       "stars": "31,211",
@@ -75,6 +77,7 @@ DAILY_DATA["github/2026-09-11"] = {
     {
       "emoji": "🛠",
       "repo": "immersive-translate/immersive-translate",
+      "deploy": ["phone", "pc"],
       "title": "网页中英对照翻译",
       "stars": "18,840",
       "today": "19",
@@ -114,6 +117,7 @@ DAILY_DATA["github/2026-09-11"] = {
     {
       "emoji": "📚",
       "repo": "521xueweihan/HelloGitHub",
+      "deploy": ["read"],
       "title": "每月一期的「新手友好开源项目」推荐合集",
       "lang": "Python",
       "stars": "175,911",
@@ -143,6 +147,7 @@ DAILY_DATA["github/2026-09-11"] = {
     {
       "emoji": "💰",
       "repo": "actualbudget/actual",
+      "deploy": ["pc", "cloud"],
       "title": "数据存在自己设备上的开源记账、预算软件",
       "lang": "JavaScript/TypeScript",
       "stars": "28,700",
@@ -171,6 +176,7 @@ DAILY_DATA["github/2026-09-11"] = {
     {
       "emoji": "🎨",
       "repo": "bilawalsidhu/gods-eye-view",
+      "deploy": ["pc"],
       "title": "用真实数据的「间谍卫星」3D 地球模拟器",
       "lang": "JavaScript",
       "stars": "24,645",

@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-17"] = {
     {
       "emoji": "🤖",
       "repo": "addyosmani/agent-skills",
+      "deploy": ["phone", "pc"],
       "title": "一键给 Claude Code 装一整套「资深工程师工作流」",
       "lang": "JavaScript",
       "stars": "95,445",
@@ -33,6 +34,7 @@ DAILY_DATA["github/2026-09-17"] = {
     {
       "emoji": "🤖",
       "repo": "langbot-app/LangBot",
+      "deploy": ["pc", "cloud"],
       "title": "网页配置一下，就能把 DeepSeek/豆包接进群聊当机器人",
       "lang": "Python",
       "stars": "17,864",
@@ -56,6 +58,7 @@ DAILY_DATA["github/2026-09-17"] = {
     {
       "emoji": "🛠",
       "repo": "github/spec-kit",
+      "deploy": ["phone", "pc"],
       "title": "让 AI 编程代理先写清楚需求再动手写代码",
       "lang": "Python",
       "stars": "137,385",
@@ -88,6 +91,7 @@ DAILY_DATA["github/2026-09-17"] = {
     {
       "emoji": "📚",
       "repo": "krahets/hello-algo",
+      "deploy": ["read"],
       "title": "动画图解的数据结构与算法教程，Python 版免费在线看",
       "stars": "130,168",
       "today": "35",
@@ -110,6 +114,7 @@ DAILY_DATA["github/2026-09-17"] = {
     {
       "emoji": "🎨",
       "repo": "JoeanAmier/TikTokDownloader",
+      "deploy": ["pc"],
       "title": "无水印下载抖音/TikTok 视频的小工具",
       "stars": "16,100",
       "today": "123",
@@ -132,6 +137,7 @@ DAILY_DATA["github/2026-09-17"] = {
     {
       "emoji": "💰",
       "repo": "TauricResearch/TradingAgents",
+      "deploy": ["pc"],
       "title": "多个 AI 角色分工协作模拟炒股决策的研究框架",
       "lang": "Python",
       "stars": "107,016",

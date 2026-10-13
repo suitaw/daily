@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-22"] = {
     {
       "emoji": "🛠",
       "repo": "tw93/Pake",
+      "deploy": ["pc"],
       "title": "一键把网页打包成桌面应用，不用学Electron",
       "lang": "Rust",
       "stars": "61,583",
@@ -31,6 +32,7 @@ DAILY_DATA["github/2026-09-22"] = {
     {
       "emoji": "🤖",
       "repo": "mksglu/context-mode",
+      "deploy": ["phone", "pc"],
       "title": "给Claude Code等编程AI的上下文瘦身工具",
       "lang": "TypeScript",
       "stars": "23,886",
@@ -55,6 +57,7 @@ DAILY_DATA["github/2026-09-22"] = {
     {
       "emoji": "💰",
       "repo": "AutoAccountingOrg/AutoAccounting",
+      "deploy": ["phone"],
       "title": "自动读账单记账的安卓App，不联网上传",
       "lang": "Kotlin",
       "stars": "921",
@@ -78,6 +81,7 @@ DAILY_DATA["github/2026-09-22"] = {
     {
       "emoji": "🛠",
       "repo": "zhouxiaoka/autoclip",
+      "deploy": ["pc"],
       "title": "AI自动把长视频剪成高光短片",
       "lang": "Python",
       "stars": "8,226",
@@ -102,6 +106,7 @@ DAILY_DATA["github/2026-09-22"] = {
     {
       "emoji": "🎨",
       "repo": "bilawalsidhu/gods-eye-view",
+      "deploy": ["pc"],
       "title": "打开浏览器就能看的实时全球3D地球",
       "lang": "JavaScript",
       "stars": "40,591",

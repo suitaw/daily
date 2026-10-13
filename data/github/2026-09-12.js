@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-12"] = {
     {
       "emoji": "🤖",
       "repo": "ChromeDevTools/chrome-devtools-mcp",
+      "deploy": ["pc"],
       "title": "让 AI 编程助手直接操控 Chrome 调试网页",
       "lang": "TypeScript",
       "stars": "51,680",
@@ -32,6 +33,7 @@ DAILY_DATA["github/2026-09-12"] = {
     {
       "emoji": "🤖",
       "repo": "obra/superpowers",
+      "deploy": ["phone", "pc"],
       "title": "给 Claude Code 装一套软件开发方法论技能包",
       "lang": "Shell",
       "stars": "285,368",
@@ -61,6 +63,7 @@ DAILY_DATA["github/2026-09-12"] = {
     {
       "emoji": "🛠",
       "repo": "microsoft/markitdown",
+      "deploy": ["phone", "pc"],
       "title": "把 PDF、Word、PPT 这些文件转成 AI 能读的 Markdown",
       "lang": "Python",
       "stars": "182,682",
@@ -103,6 +106,7 @@ DAILY_DATA["github/2026-09-12"] = {
     {
       "emoji": "🎨",
       "repo": "pascalorg/editor",
+      "deploy": ["phone", "pc", "cloud"],
       "title": "浏览器里的 3D 建筑编辑器，还带 AI Agent 接口",
       "lang": "TypeScript",
       "stars": "23,597",
@@ -131,6 +135,7 @@ DAILY_DATA["github/2026-09-12"] = {
     {
       "emoji": "💰",
       "repo": "TNT-Likely/BeeCount",
+      "deploy": ["phone", "pc", "cloud"],
       "title": "苹果、安卓、网页都能用的本地优先记账 App",
       "lang": "Dart",
       "stars": "2,300+",

@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-11"] = {
     {
       "emoji": "🤖",
       "repo": "mksglu/context-mode",
+      "deploy": ["phone", "pc"],
       "title": "给AI编程智能体的上下文做「减肥」",
       "lang": "TypeScript",
       "stars": "26,315",
@@ -29,6 +30,7 @@ DAILY_DATA["github/2026-10-11"] = {
     {
       "emoji": "🤖",
       "repo": "hugohe3/ppt-master",
+      "deploy": ["pc"],
       "title": "喂文档或主题，AI直接生成可编辑PPT",
       "lang": "Python",
       "stars": "59,441",
@@ -54,6 +56,7 @@ DAILY_DATA["github/2026-10-11"] = {
     {
       "emoji": "🛠",
       "repo": "RapidAI/RapidOCR",
+      "deploy": ["pc"],
       "title": "离线OCR工具包，给工具加「认字」功能",
       "lang": "Python",
       "stars": "8,105",
@@ -77,6 +80,7 @@ DAILY_DATA["github/2026-10-11"] = {
     {
       "emoji": "🛠",
       "repo": "JoeanAmier/TikTokDownloader",
+      "deploy": ["pc"],
       "title": "抖音/TikTok作品批量下载与数据采集工具",
       "lang": "Python",
       "stars": "16,666",
@@ -112,6 +116,7 @@ DAILY_DATA["github/2026-10-11"] = {
     {
       "emoji": "📚",
       "repo": "anthropics/knowledge-work-plugins",
+      "deploy": ["phone", "pc"],
       "title": "Anthropic官方出的Claude插件写法范例",
       "lang": "Python",
       "stars": "28,820",

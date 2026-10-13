@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-10"] = {
     {
       "emoji": "🤖",
       "repo": "alibaba/open-code-review",
+      "deploy": ["pc"],
       "title": "AI 自动审查代码，能接进 Claude Code 当插件",
       "lang": "Go",
       "stars": "45,208",
@@ -40,6 +41,7 @@ DAILY_DATA["github/2026-10-10"] = {
     {
       "emoji": "🤖",
       "repo": "BerriAI/litellm",
+      "deploy": ["pc", "cloud"],
       "title": "一个本地网关，统一调用上百种大模型",
       "lang": "Python",
       "stars": "60,659",
@@ -66,6 +68,7 @@ DAILY_DATA["github/2026-10-10"] = {
     {
       "emoji": "🛠",
       "repo": "xifangczy/cat-catch",
+      "deploy": ["phone", "pc"],
       "title": "浏览器扩展，揪出网页里的视频音频资源",
       "lang": "JavaScript",
       "stars": "22,218",
@@ -93,6 +96,7 @@ DAILY_DATA["github/2026-10-10"] = {
     {
       "emoji": "💰",
       "repo": "actualbudget/actual",
+      "deploy": ["pc", "cloud"],
       "title": "本地优先的记账软件，数据存自己手里",
       "stars": "29.4k",
       "body": "开源免费的个人理财记账软件，走本地优先的路子——数据先存在自己设备上，官方也提供同步功能，能在多台设备间同步账本。用的是`信封预算法`的思路，记账和预算管理一起做。除了自己用 Docker 自建同步服务，官方也直接提供 Windows、Mac、Linux 的桌面安装包，不自建也能用。",
@@ -114,6 +118,7 @@ DAILY_DATA["github/2026-10-10"] = {
     {
       "emoji": "📚",
       "repo": "ruanyf/weekly",
+      "deploy": ["read"],
       "title": "科技爱好者周刊，每周五更新",
       "stars": "105,575",
       "today": "143",
@@ -135,6 +140,7 @@ DAILY_DATA["github/2026-10-10"] = {
     {
       "emoji": "📚",
       "repo": "521xueweihan/HelloGitHub",
+      "deploy": ["read"],
       "title": "每月一期，推荐适合新手的开源项目",
       "lang": "Python",
       "stars": "180,911",

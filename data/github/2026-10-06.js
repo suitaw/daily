@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-06"] = {
     {
       "emoji": "🤖",
       "repo": "zhayujie/CowAgent",
+      "deploy": ["pc", "cloud"],
       "title": "一行命令搭个支持豆包DeepSeek的AI管家",
       "lang": "Python",
       "stars": "47,232",
@@ -35,6 +36,7 @@ DAILY_DATA["github/2026-10-06"] = {
     {
       "emoji": "🛠",
       "repo": "xushengfeng/eSearch",
+      "deploy": ["pc"],
       "title": "截图/OCR/翻译/录屏四合一免费工具",
       "lang": "TypeScript",
       "stars": "7,250",
@@ -57,6 +59,7 @@ DAILY_DATA["github/2026-10-06"] = {
     {
       "emoji": "📚",
       "repo": "M-Abozaid/esp32-c3-adblock",
+      "deploy": ["pc"],
       "title": "几块钱的芯片板子，自己做个广告拦截器",
       "lang": "C++",
       "stars": "1,342",
@@ -84,6 +87,7 @@ DAILY_DATA["github/2026-10-06"] = {
     {
       "emoji": "📚",
       "repo": "PlexPt/awesome-chatgpt-prompts-zh",
+      "deploy": ["read"],
       "title": "一千多条中文AI提示词，照抄就能用",
       "stars": "62,990",
       "today": "45",
@@ -105,6 +109,7 @@ DAILY_DATA["github/2026-10-06"] = {
     {
       "emoji": "💰",
       "repo": "TNT-Likely/BeeCount",
+      "deploy": ["phone", "pc", "cloud"],
       "title": "跨平台开源记账App，手机电脑网页都能用",
       "stars": "2.5k",
       "body": "`BeeCount`是个跨平台的开源记账App，iOS、Android、网页都有版本，支持多账本、多账户、预算管理、周期记账和图表统计。还带AI拍照识别小票、语音记账、截图自动识别金额这些辅助输入功能，数据可以选本地存储，也能用自己的服务器、iCloud或WebDAV同步。",

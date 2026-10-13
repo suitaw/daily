@@ -35,6 +35,10 @@ const RULES = {
       need(str(it.body), f, `${at} 缺 body`);
       need(str(it.explain), f, `${at} 缺 explain`);
       need(str(it.opinion), f, `${at} 缺 opinion`);
+      const dep = it.deploy;
+      need(Array.isArray(dep) && dep.length > 0 && dep.every(x => ['phone', 'pc', 'cloud', 'read'].includes(x)) && new Set(dep).size === dep.length,
+        f, `${at} 的 deploy 要写成数组，只能用 phone / pc / cloud / read：${JSON.stringify(dep)}`);
+      need(!(dep || []).includes('read') || dep.length === 1, f, `${at} 的 deploy 里 read（不用装）不能和别的混用`);
       need(Array.isArray(it.install) && it.install.length > 0, f, `${at} 缺 install`);
       (it.install || []).forEach((sec, k) => {
         need(str(sec.title), f, `${at} 的第 ${k + 1} 段 install 缺 title`);

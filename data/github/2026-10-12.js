@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-12"] = {
     {
       "emoji": "🤖",
       "repo": "thedotmack/claude-mem",
+      "deploy": ["pc"],
       "title": "给Claude Code装上跨会话记忆",
       "lang": "TypeScript",
       "stars": "99,740",
@@ -30,6 +31,7 @@ DAILY_DATA["github/2026-10-12"] = {
     {
       "emoji": "🤖",
       "repo": "ranxianglei/billion-context",
+      "deploy": ["phone", "pc"],
       "title": "给AI编程工具的对话做压缩，省token聊更久",
       "lang": "TypeScript",
       "stars": "904",
@@ -55,6 +57,7 @@ DAILY_DATA["github/2026-10-12"] = {
     {
       "emoji": "🛠",
       "repo": "XIU2/CloudflareSpeedTest",
+      "deploy": ["phone", "pc"],
       "title": "测出你这边最快的Cloudflare节点IP",
       "lang": "Go",
       "stars": "29,393",
@@ -87,6 +90,7 @@ DAILY_DATA["github/2026-10-12"] = {
     {
       "emoji": "📚",
       "repo": "d2l-ai/d2l-zh",
+      "deploy": ["read"],
       "title": "免费中文教科书《动手学深度学习》",
       "lang": "Python",
       "stars": "81,568",
@@ -109,6 +113,7 @@ DAILY_DATA["github/2026-10-12"] = {
     {
       "emoji": "🎨",
       "repo": "Anduin2017/HowToCook",
+      "deploy": ["read"],
       "title": "程序员在家怎么做饭的开源菜谱",
       "stars": "102,704",
       "today": "45",

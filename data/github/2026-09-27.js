@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-27"] = {
     {
       "emoji": "🤖",
       "repo": "zhayujie/CowAgent",
+      "deploy": ["pc", "cloud"],
       "title": "自己搭一个能跑技能、记笔记的AI助手",
       "lang": "Python",
       "stars": "47,126",
@@ -36,6 +37,7 @@ DAILY_DATA["github/2026-09-27"] = {
     {
       "emoji": "🛠",
       "repo": "Tencent/WeKnora",
+      "deploy": ["pc", "cloud"],
       "title": "把自己的文档喂给AI，变成能查能问的知识库",
       "lang": "Go",
       "stars": "30,347",
@@ -62,6 +64,7 @@ DAILY_DATA["github/2026-09-27"] = {
     {
       "emoji": "🛠",
       "repo": "anthropics/claude-code-action",
+      "deploy": ["phone", "pc"],
       "title": "让Claude Code自动帮你审代码、改bug",
       "lang": "TypeScript",
       "stars": "9,089",
@@ -84,6 +87,7 @@ DAILY_DATA["github/2026-09-27"] = {
     {
       "emoji": "💰",
       "repo": "virattt/ai-hedge-fund",
+      "deploy": ["pc"],
       "title": "用AI模拟几个投资风格跑「虚拟对冲基金」",
       "lang": "Python",
       "stars": "63,800",
@@ -106,6 +110,7 @@ DAILY_DATA["github/2026-09-27"] = {
     {
       "emoji": "🎨",
       "repo": "maotoumao/MusicFree",
+      "deploy": ["phone", "pc"],
       "title": "插件化的无广告免费听歌App",
       "lang": "TypeScript",
       "stars": "27,120",

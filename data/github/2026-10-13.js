@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-13"] = {
     {
       "emoji": "🤖",
       "repo": "open-webui/open-webui",
+      "deploy": ["pc", "cloud"],
       "title": "给自己接的大模型装个好用的聊天网页",
       "lang": "Python",
       "stars": "154,992",
@@ -30,6 +31,7 @@ DAILY_DATA["github/2026-10-13"] = {
     {
       "emoji": "🤖",
       "repo": "AstrBotDevs/AstrBot",
+      "deploy": ["pc", "cloud"],
       "title": "把大模型接进QQ/微信/Telegram做机器人的框架",
       "lang": "Python",
       "stars": "41,785",
@@ -55,6 +57,7 @@ DAILY_DATA["github/2026-10-13"] = {
     {
       "emoji": "🎨",
       "repo": "bilawalsidhu/gods-eye-view",
+      "deploy": ["pc"],
       "title": "浏览器里用真实卫星数据做的卫星视角模拟器",
       "lang": "JavaScript",
       "stars": "53,661",
@@ -80,6 +83,7 @@ DAILY_DATA["github/2026-10-13"] = {
     {
       "emoji": "🤖",
       "repo": "earthtojake/text-to-cad",
+      "deploy": ["pc"],
       "title": "给Claude Code装个技能，让它能画3D零件图",
       "lang": "Python",
       "week": "2,441",
@@ -103,6 +107,7 @@ DAILY_DATA["github/2026-10-13"] = {
     {
       "emoji": "📚",
       "repo": "microsoft/BitNet",
+      "deploy": ["pc"],
       "title": "微软官方的「1-bit」推理框架，纯CPU也能跑大模型",
       "lang": "C++",
       "stars": "40,906",

@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-15"] = {
     {
       "emoji": "🤖",
       "repo": "ayghri/i-have-adhd",
+      "deploy": ["phone", "pc"],
       "title": "让 Claude Code 少说废话、直接给结论的技能包",
       "lang": "Shell",
       "stars": "45,426",
@@ -33,6 +34,7 @@ DAILY_DATA["github/2026-09-15"] = {
     {
       "emoji": "🛠",
       "repo": "localsend/localsend",
+      "deploy": ["phone", "pc"],
       "title": "手机和电脑之间局域网传文件，苹果 AirDrop 的开源平替",
       "lang": "Dart",
       "stars": "91,313",
@@ -71,6 +73,7 @@ DAILY_DATA["github/2026-09-15"] = {
     {
       "emoji": "🤖",
       "repo": "alibaba/open-code-review",
+      "deploy": ["pc"],
       "title": "命令行里跑的 AI 代码审查工具",
       "lang": "Go",
       "stars": "25,680",
@@ -103,6 +106,7 @@ DAILY_DATA["github/2026-09-15"] = {
     {
       "emoji": "🤖",
       "repo": "Tencent/WeKnora",
+      "deploy": ["pc", "cloud"],
       "title": "把一堆文档变成能问答的 AI 知识库",
       "lang": "Go",
       "stars": "23,224",
@@ -134,6 +138,7 @@ DAILY_DATA["github/2026-09-15"] = {
     {
       "emoji": "📚",
       "repo": "ruanyf/weekly",
+      "deploy": ["read"],
       "title": "写了 8 年的科技爱好者周刊",
       "stars": "102,514",
       "today": "77",
@@ -159,6 +164,7 @@ DAILY_DATA["github/2026-09-15"] = {
     {
       "emoji": "💰",
       "repo": "mootdx/mootdx",
+      "deploy": ["pc"],
       "title": "读取国内股票行情数据的 Python 工具包",
       "lang": "Python",
       "stars": "2,284",

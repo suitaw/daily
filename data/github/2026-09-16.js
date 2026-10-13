@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-16"] = {
     {
       "emoji": "🤖",
       "repo": "cloudflare/security-audit-skill",
+      "deploy": ["phone", "pc"],
       "title": "一条命令让 Claude Code 学会审计代码安全",
       "lang": "JavaScript",
       "stars": "5,419",
@@ -33,6 +34,7 @@ DAILY_DATA["github/2026-09-16"] = {
     {
       "emoji": "🛠",
       "repo": "max-sixty/worktrunk",
+      "deploy": ["pc"],
       "title": "让多个 AI 代理并行干活的 Git 分支管理工具",
       "lang": "Rust",
       "stars": "7,881",
@@ -64,6 +66,7 @@ DAILY_DATA["github/2026-09-16"] = {
     {
       "emoji": "📚",
       "repo": "ankitects/anki",
+      "deploy": ["phone", "pc"],
       "title": "科学记忆神器，背单词记概念都好用",
       "lang": "Rust",
       "stars": "30,617",

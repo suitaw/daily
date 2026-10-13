@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-03"] = {
     {
       "emoji": "🤖",
       "repo": "obra/superpowers",
+      "deploy": ["phone", "pc"],
       "title": "Claude Code 技能框架一天涨了500多星",
       "lang": "Shell",
       "stars": "294,460",
@@ -34,6 +35,7 @@ DAILY_DATA["github/2026-10-03"] = {
     {
       "emoji": "🤖",
       "repo": "TencentCloud/Octop",
+      "deploy": ["pc", "cloud"],
       "title": "腾讯云出了个自托管多智能体助手",
       "lang": "Python",
       "stars": "6,393",
@@ -75,6 +77,7 @@ DAILY_DATA["github/2026-10-03"] = {
     {
       "emoji": "🛠",
       "repo": "qjfoidnh/BaiduPCS-Go",
+      "deploy": ["phone", "pc"],
       "title": "百度网盘命令行工具支持分享链接秒传转存",
       "lang": "Go",
       "stars": "5,686",
@@ -114,6 +117,7 @@ DAILY_DATA["github/2026-10-03"] = {
     {
       "emoji": "📚",
       "repo": "jaywcjlove/reference",
+      "deploy": ["read"],
       "title": "开发者技术速查手册网页直接看不用装",
       "stars": "15,252",
       "body": "`jaywcjlove/reference`收集了 Python、JavaScript、Go、React、Vue、Docker、Git 等各种技术的速查表（cheat sheet），常用命令、语法点整理在一页纸里，免费开源，15,252颗星。打开网页搜你要查的技术名字就行，不用装任何东西。",
@@ -135,6 +139,7 @@ DAILY_DATA["github/2026-10-03"] = {
     {
       "emoji": "💰",
       "repo": "beancount/beancount",
+      "deploy": ["phone", "pc"],
       "title": "纯文本复式记账工具Python写的",
       "lang": "Python",
       "stars": "6,043",
@@ -176,6 +181,7 @@ DAILY_DATA["github/2026-10-03"] = {
     {
       "emoji": "🎨",
       "repo": "harry0703/MoneyPrinterTurbo",
+      "deploy": ["pc", "cloud"],
       "title": "一句话生成带配音字幕的AI短视频",
       "lang": "Python",
       "stars": "128,090",

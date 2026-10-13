@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-13"] = {
     {
       "emoji": "🤖",
       "repo": "Shubhamsaboo/awesome-llm-apps",
+      "deploy": ["pc"],
       "title": "100 多个能直接抄的 AI Agent/RAG 应用示例合集",
       "lang": "Python",
       "stars": "137,624",
@@ -39,6 +40,7 @@ DAILY_DATA["github/2026-09-13"] = {
     {
       "emoji": "🤖",
       "repo": "zhayujie/CowAgent",
+      "deploy": ["pc", "cloud"],
       "title": "把大模型接到微信、QQ、Telegram 上做机器人的框架",
       "lang": "Python",
       "stars": "46,936",
@@ -71,6 +73,7 @@ DAILY_DATA["github/2026-09-13"] = {
     {
       "emoji": "🤖",
       "repo": "DietrichGebert/ponytail",
+      "deploy": ["phone", "pc"],
       "title": "让 Claude Code 少写没用代码的极简技能包",
       "lang": "JavaScript",
       "stars": "136,600+",
@@ -99,6 +102,7 @@ DAILY_DATA["github/2026-09-13"] = {
     {
       "emoji": "🛠",
       "repo": "cathrynlavery/diagram-design",
+      "deploy": ["phone", "pc"],
       "title": "让 Claude Code 帮你画单文件 HTML 图表",
       "lang": "HTML",
       "stars": "38,900+",
@@ -126,6 +130,7 @@ DAILY_DATA["github/2026-09-13"] = {
     {
       "emoji": "🛠",
       "repo": "RapidAI/RapidOCR",
+      "deploy": ["pc"],
       "title": "免费离线的中英文 OCR 文字识别工具",
       "lang": "Python",
       "stars": "7,805",
@@ -154,6 +159,7 @@ DAILY_DATA["github/2026-09-13"] = {
     {
       "emoji": "📚",
       "repo": "ascoders/weekly",
+      "deploy": ["read"],
       "title": "前端好文精读周刊",
       "lang": "JavaScript",
       "stars": "31,119",
@@ -180,6 +186,7 @@ DAILY_DATA["github/2026-09-13"] = {
     {
       "emoji": "💰",
       "repo": "ellite/Wallos",
+      "deploy": ["pc", "cloud"],
       "title": "自托管的订阅费追踪器",
       "lang": "PHP",
       "stars": "8,500+",

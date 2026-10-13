@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-29"] = {
     {
       "emoji": "🤖",
       "repo": "AstrBotDevs/AstrBot",
+      "deploy": ["pc", "cloud"],
       "title": "接入QQ/微信/Telegram的AI机器人平台",
       "lang": "Python",
       "stars": "41,165",
@@ -31,6 +32,7 @@ DAILY_DATA["github/2026-09-29"] = {
     {
       "emoji": "🛠",
       "repo": "whyour/qinglong",
+      "deploy": ["pc", "cloud"],
       "title": "给自己写的定时脚本配个网页管理面板",
       "lang": "TypeScript",
       "stars": "19,910",
@@ -66,6 +68,7 @@ DAILY_DATA["github/2026-09-29"] = {
     {
       "emoji": "🎨",
       "repo": "xifangczy/cat-catch",
+      "deploy": ["phone", "pc"],
       "title": "揪出网页里的视频/音频直链，一键下载",
       "lang": "JavaScript",
       "stars": "22,058",
@@ -90,6 +93,7 @@ DAILY_DATA["github/2026-09-29"] = {
     {
       "emoji": "📚",
       "repo": "byoungd/up",
+      "deploy": ["read"],
       "title": "一份用AI加速学习和做成事的实践指南",
       "lang": "JavaScript",
       "stars": "64,660",
@@ -112,6 +116,7 @@ DAILY_DATA["github/2026-09-29"] = {
     {
       "emoji": "💰",
       "repo": "glink25/Cent",
+      "deploy": ["phone", "pc"],
       "title": "网页记账，说一句话AI帮你记一笔",
       "stars": "1,200",
       "body": "一个开源的记账网页应用，长按记账按钮说一句话，AI就能自动识别出金额、分类和备注填进去，还能导入微信/支付宝账单、按周期自动生成订阅账单、支持三十多种货币换算，官方提供了能直接打开用的在线版本，也可以自己部署一份。",

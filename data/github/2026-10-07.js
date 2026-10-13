@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-07"] = {
     {
       "emoji": "🤖",
       "repo": "ayghri/i-have-adhd",
+      "deploy": ["phone", "pc"],
       "title": "一个技能包，让 Claude Code 别绕弯子直接给答案",
       "lang": "Python",
       "stars": "54,402",
@@ -27,6 +28,7 @@ DAILY_DATA["github/2026-10-07"] = {
     {
       "emoji": "🤖",
       "repo": "cathrynlavery/diagram-design",
+      "deploy": ["phone", "pc"],
       "title": "给 Claude Code 装的画图技能，架构图流程图随口就出",
       "lang": "HTML",
       "stars": "44,027",
@@ -51,6 +53,7 @@ DAILY_DATA["github/2026-10-07"] = {
     {
       "emoji": "🤖",
       "repo": "mvschwarz/openrig",
+      "deploy": ["phone", "pc"],
       "title": "用 Claude Code、Codex 搭一个多 Agent 协作团队",
       "lang": "TypeScript",
       "stars": "5,517",
@@ -77,6 +80,7 @@ DAILY_DATA["github/2026-10-07"] = {
     {
       "emoji": "🤖",
       "repo": "VectifyAI/PageIndex",
+      "deploy": ["pc"],
       "title": "不用向量库的 RAG 引擎，靠推理一步步翻文档找答案",
       "lang": "Python",
       "stars": "38,793",
@@ -100,6 +104,7 @@ DAILY_DATA["github/2026-10-07"] = {
     {
       "emoji": "🛠",
       "repo": "heygen-com/hyperframes",
+      "deploy": ["pc"],
       "title": "写 HTML 自动渲染成 MP4 视频，专门给 AI Agent 用",
       "lang": "TypeScript",
       "stars": "57,948",
@@ -125,6 +130,7 @@ DAILY_DATA["github/2026-10-07"] = {
     {
       "emoji": "🛠",
       "repo": "vastsa/FileCodeBox",
+      "deploy": ["pc", "cloud"],
       "title": "自己搭一个取件码文件分享站，不用注册",
       "lang": "Python",
       "stars": "8,591",
@@ -148,6 +154,7 @@ DAILY_DATA["github/2026-10-07"] = {
     {
       "emoji": "💰",
       "repo": "securo-finance/securo",
+      "deploy": ["pc", "cloud"],
       "title": "自己部署一个记账理财管家，数据不放别人服务器",
       "stars": "3.9k",
       "body": "Securo 是一个自托管的个人记账/预算工具：能分账户记交易、自动给支出分类、跟踪预算和储蓄目标，还能连银行账号自动同步流水（通过第三方同步服务）。不涉及自动交易，纯粹是记账理财管理。",
@@ -170,6 +177,7 @@ DAILY_DATA["github/2026-10-07"] = {
     {
       "emoji": "🛠",
       "repo": "pbakaus/impeccable",
+      "deploy": ["phone", "pc"],
       "title": "给 AI 写的网页做设计体检，避免「一眼假」的 AI 风格",
       "lang": "JavaScript",
       "stars": "77,688",

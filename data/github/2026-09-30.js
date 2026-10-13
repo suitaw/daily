@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-30"] = {
     {
       "emoji": "🤖",
       "repo": "t8y2/dbx",
+      "deploy": ["pc"],
       "title": "带 AI 助手的数据库客户端，能接进 Claude Code",
       "lang": "Rust",
       "stars": "21,990",
@@ -29,6 +30,7 @@ DAILY_DATA["github/2026-09-30"] = {
     {
       "emoji": "🛠",
       "repo": "521xueweihan/GitHub520",
+      "deploy": ["pc"],
       "title": "改一下 hosts，GitHub 访问能快不少",
       "lang": "Python",
       "stars": "29,908",
@@ -54,6 +56,7 @@ DAILY_DATA["github/2026-09-30"] = {
     {
       "emoji": "📚",
       "repo": "1c7/chinese-independent-developer",
+      "deploy": ["read"],
       "title": "一份「国内独立开发者在做什么」的项目大合集",
       "stars": "61,597",
       "today": "31",
@@ -74,6 +77,7 @@ DAILY_DATA["github/2026-09-30"] = {
     {
       "emoji": "💰",
       "repo": "hugo2046/QuantsPlaybook",
+      "deploy": ["pc"],
       "title": "100+ 券商研报量化策略，拿来复现学量化用",
       "lang": "Jupyter Notebook",
       "stars": "6,347",
@@ -98,6 +102,7 @@ DAILY_DATA["github/2026-09-30"] = {
     {
       "emoji": "🎨",
       "repo": "averygan/reclip",
+      "deploy": ["phone", "pc", "cloud"],
       "title": "自己搭视频下载站，粘链接就能存视频音频",
       "lang": "HTML",
       "stars": "10,094",

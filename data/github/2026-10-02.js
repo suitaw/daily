@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-02"] = {
     {
       "emoji": "🛠",
       "repo": "tw93/Pake",
+      "deploy": ["pc"],
       "title": "零代码把你自己的网页/HTML 小工具打包成桌面应用",
       "lang": "Rust",
       "stars": "61,862",
@@ -32,6 +33,7 @@ DAILY_DATA["github/2026-10-02"] = {
     {
       "emoji": "💰",
       "repo": "glink25/Cent",
+      "deploy": ["phone", "pc"],
       "title": "免服务器的多人记账网页，能自动导入支付宝微信账单",
       "body": "`Cent` 是一个开源的记账 Web App，数据不存在作者的服务器上，而是存进你自己的 GitHub 仓库；支持导入支付宝、微信账单自动生成记账记录，还有统计图表和消费地图。\n不连接真实银行账户，不涉及自动交易。",
       "explain": "它用你的 GitHub 账号登录授权后，把记账数据存进你自己名下的一个仓库里，相当于「记账本」就是你自己的一份 GitHub 数据，作者看不到也拿不走；这种「数据存自己账号」的方式比交给某个公司的服务器更让人放心一点。",
@@ -52,6 +54,7 @@ DAILY_DATA["github/2026-10-02"] = {
     {
       "emoji": "📚",
       "repo": "rohitg00/ai-engineering-from-scratch",
+      "deploy": ["read"],
       "title": "从数学基础到 AI Agent 的免费开源课程，带可运行代码",
       "lang": "Python",
       "stars": "62,448",
@@ -83,6 +86,7 @@ DAILY_DATA["github/2026-10-02"] = {
     {
       "emoji": "🤖",
       "repo": "alirezarezvani/claude-skills",
+      "deploy": ["phone", "pc"],
       "title": "388 个现成的 Claude Code 技能包，装完直接用",
       "lang": "Python",
       "stars": "27,184",
@@ -106,6 +110,7 @@ DAILY_DATA["github/2026-10-02"] = {
     {
       "emoji": "🎨",
       "repo": "xifangczy/cat-catch",
+      "deploy": ["phone", "pc"],
       "title": "浏览器扩展，一键嗅探网页里的视频/音频资源",
       "lang": "JavaScript",
       "stars": "22,115",
@@ -129,6 +134,7 @@ DAILY_DATA["github/2026-10-02"] = {
     {
       "emoji": "📚",
       "repo": "521xueweihan/HelloGitHub",
+      "deploy": ["read"],
       "title": "每月一期的开源项目推荐月刊，专挑入门好玩的",
       "lang": "Python",
       "stars": "179,569",

@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-28"] = {
     {
       "emoji": "🤖",
       "repo": "vectorize-io/hindsight",
+      "deploy": ["pc", "cloud"],
       "title": "给 Agent 装上会越用越聪明的记忆",
       "lang": "Python",
       "stars": "37,285",
@@ -30,6 +31,7 @@ DAILY_DATA["github/2026-09-28"] = {
     {
       "emoji": "🛠",
       "repo": "alibaba/open-code-review",
+      "deploy": ["pc"],
       "title": "一条命令，让 AI 帮你审查代码",
       "lang": "Go",
       "stars": "41,925",
@@ -55,6 +57,7 @@ DAILY_DATA["github/2026-09-28"] = {
     {
       "emoji": "💰",
       "repo": "TNT-Likely/BeeCount",
+      "deploy": ["phone", "pc", "cloud"],
       "title": "轻量记账 App，AI 帮你自动分类",
       "lang": "Dart",
       "stars": "2,400",
@@ -76,6 +79,7 @@ DAILY_DATA["github/2026-09-28"] = {
     {
       "emoji": "🎨",
       "repo": "debpalash/VoiceStudio",
+      "deploy": ["pc"],
       "title": "本地语音克隆，配音朗读不用联网",
       "lang": "Python",
       "stars": "40,127",
@@ -100,6 +104,7 @@ DAILY_DATA["github/2026-09-28"] = {
     {
       "emoji": "📚",
       "repo": "OI-wiki/OI-wiki",
+      "deploy": ["read"],
       "title": "免费算法百科，当编程知识字典查",
       "lang": "TypeScript",
       "stars": "26,752",

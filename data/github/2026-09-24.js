@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-24"] = {
     {
       "emoji": "🤖",
       "repo": "obra/superpowers",
+      "deploy": ["phone", "pc"],
       "title": "给Claude Code装一套编程方法论",
       "lang": "Shell",
       "stars": "290,682",
@@ -28,6 +29,7 @@ DAILY_DATA["github/2026-09-24"] = {
     {
       "emoji": "🤖",
       "repo": "cloudflare/security-audit-skill",
+      "deploy": ["phone", "pc"],
       "title": "用AI帮你的项目做一次安全审计",
       "lang": "JavaScript",
       "stars": "20,906",
@@ -57,6 +59,7 @@ DAILY_DATA["github/2026-09-24"] = {
     {
       "emoji": "🛠",
       "repo": "pbakaus/impeccable",
+      "deploy": ["phone", "pc"],
       "title": "让AI帮你的网页/工具做设计把关",
       "lang": "JavaScript",
       "stars": "70,330",
@@ -79,6 +82,7 @@ DAILY_DATA["github/2026-09-24"] = {
     {
       "emoji": "📚",
       "repo": "PlexPt/awesome-chatgpt-prompts-zh",
+      "deploy": ["read"],
       "title": "中文prompt写法参考大全",
       "stars": "62,646",
       "today": "45",
@@ -99,6 +103,7 @@ DAILY_DATA["github/2026-09-24"] = {
     {
       "emoji": "💰",
       "repo": "QingHeYang/EasyAccounts",
+      "deploy": ["pc", "cloud"],
       "title": "自己搭一个带AI记账的账本",
       "stars": "355",
       "body": "一款中文记账软件，支持账户管理、分类记账、报表导出，还带了 AI 记账助手——可以直接跟 AI 对话说「今天吃饭花了35」，让 AI 帮你分类记录，也支持拍照识别小票。数据存在你自己部署的服务器上，不是别人的云。项目在持续更新，今年 5 月刚发了 2.7.0 版本，加了定时记账、自动生成月度 Excel 这些功能。Star 数不算多，但作者说明「自己天天在用」，更新挺活跃。",

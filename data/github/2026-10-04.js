@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-10-04"] = {
     {
       "emoji": "🤖",
       "repo": "thedotmack/claude-mem",
+      "deploy": ["pc"],
       "title": "给 Claude Code 装个记忆，跨会话接得上上下文",
       "lang": "TypeScript",
       "stars": "95,574",
@@ -27,6 +28,7 @@ DAILY_DATA["github/2026-10-04"] = {
     {
       "emoji": "🤖",
       "repo": "addyosmani/agent-skills",
+      "deploy": ["phone", "pc"],
       "title": "给 Claude Code 装一套「高级工程师」工作流技能",
       "lang": "JavaScript",
       "stars": "100,837",
@@ -49,6 +51,7 @@ DAILY_DATA["github/2026-10-04"] = {
     {
       "emoji": "🛠",
       "repo": "XIU2/CloudflareSpeedTest",
+      "deploy": ["phone", "pc"],
       "title": "测一测你这边哪个 Cloudflare 节点最快",
       "lang": "Go",
       "stars": "29,266",
@@ -81,6 +84,7 @@ DAILY_DATA["github/2026-10-04"] = {
     {
       "emoji": "📚",
       "repo": "jackfrued/Python-for-Freshmen-2026",
+      "deploy": ["read"],
       "title": "一套专门给零基础写的 2026 版 Python 教程",
       "stars": "809",
       "body": "这是一套从变量、分支循环、列表字典讲到函数、面向对象的 Python 入门教程，一共 20 篇文档，专门冲着「新手容易卡在哪」重新打磨过，语言写得比较精简。",
@@ -100,6 +104,7 @@ DAILY_DATA["github/2026-10-04"] = {
     {
       "emoji": "💰",
       "repo": "firefly-iii/firefly-iii",
+      "deploy": ["pc", "cloud"],
       "title": "自己把账算明白：开源记账理财软件 Firefly III",
       "lang": "PHP",
       "stars": "24.8k",
@@ -127,6 +132,7 @@ DAILY_DATA["github/2026-10-04"] = {
     {
       "emoji": "🎨",
       "repo": "pablostanley/yoinks",
+      "deploy": ["phone", "pc"],
       "title": "命令行里粘个链接，就能把视频存到本地",
       "lang": "TypeScript",
       "stars": "3,853",

@@ -5,6 +5,7 @@ DAILY_DATA["github/2026-09-14"] = {
     {
       "emoji": "🤖",
       "repo": "heygen-com/hyperframes",
+      "deploy": ["pc"],
       "title": "写 HTML/CSS，一条命令导出成 MP4 视频",
       "lang": "TypeScript",
       "stars": "49,591",
@@ -37,6 +38,7 @@ DAILY_DATA["github/2026-09-14"] = {
     {
       "emoji": "🛠",
       "repo": "mksglu/context-mode",
+      "deploy": ["phone", "pc"],
       "title": "给 Claude Code 省\"记忆空间\"的插件",
       "lang": "TypeScript",
       "stars": "22,621",
@@ -65,6 +67,7 @@ DAILY_DATA["github/2026-09-14"] = {
     {
       "emoji": "🛠",
       "repo": "xushengfeng/eSearch",
+      "deploy": ["pc"],
       "title": "截图 + 离线 OCR + 翻译 + 以图搜图合一的桌面工具",
       "lang": "TypeScript",
       "stars": "7,125",
@@ -93,6 +96,7 @@ DAILY_DATA["github/2026-09-14"] = {
     {
       "emoji": "📚",
       "repo": "asgeirtj/system_prompts_leaks",
+      "deploy": ["read"],
       "title": "Claude、ChatGPT、Gemini 等大厂系统提示词合集",
       "lang": "JavaScript",
       "stars": "66,018",
@@ -119,6 +123,7 @@ DAILY_DATA["github/2026-09-14"] = {
     {
       "emoji": "💰",
       "repo": "QingHeYang/EasyAccounts",
+      "deploy": ["pc", "cloud"],
       "title": "能用大模型自动记账的自托管记账软件",
       "stars": "351",
       "body": "一个中文家庭/个人记账软件，自己用 Docker 部署在自己的电脑或服务器上，数据不上传别人服务器；带一个\"AI 记账\"功能，需要自己配置大模型 API Key（支持多种大模型），可以直接说一句话（比如\"今天吃饭花了 35\"）让 AI 帮你识别金额、自动分类记账。",
@@ -149,6 +154,7 @@ DAILY_DATA["github/2026-09-14"] = {
     {
       "emoji": "🎨",
       "repo": "JustVugg/colibri",
+      "deploy": ["pc"],
       "title": "用纯 C 语言硬啃超大模型的推理引擎，开眼界向",
       "lang": "C",
       "stars": "29,801",
