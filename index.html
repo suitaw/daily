@@ -653,8 +653,26 @@ function dayTypes() {
   return Object.keys(TYPES).filter(t => (DAILY_INDEX[t] || []).includes(ai.date)).sort((a, b) => (b === ai.type) - (a === ai.type));
 }
 
+// 「关于我」自动同步：从私有仓库 suitaw/me 拉 profile.md（Claude Code 记忆生成的摘要）
+// token 是只读 suitaw/me 的 GitHub fine-grained token，只存在本机 localStorage
+const PROFILE_URL = 'https://api.github.com/repos/suitaw/me/contents/profile.md';
+async function syncProfile(force) {
+  const token = store.get('ghToken', '');
+  if (!token) return { ok: false, msg: '' };
+  if (!force && Date.now() - store.get('profileSyncAt', 0) < 30 * 60 * 1000) return { ok: true, msg: '' };
+  try {
+    const res = await fetch(PROFILE_URL, { headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github.raw' }, cache: 'no-store' });
+    if (!res.ok) return { ok: false, msg: res.status === 401 ? 'token 无效或过期了' : res.status === 404 ? '找不到 suitaw/me 的 profile.md（token 没给这个仓库的读权限？）' : '同步失败：HTTP ' + res.status };
+    store.set('profileSync', (await res.text()).trim());
+    store.set('profileSyncAt', Date.now());
+    return { ok: true, msg: '' };
+  } catch (e) {
+    return { ok: false, msg: '同步失败：' + e.message };
+  }
+}
+
 function systemPrompt(ctx) {
-  const profile = store.get('profile', '').trim();
+  const profile = [store.get('ghToken', '') && store.get('profileSync', ''), store.get('profile', '')].filter(s => s && s.trim()).join('\n\n').trim();
   const web = store.get('web', false);
   return [
     '你是「每日速递」网站里的问答助手。这个网站每天由 AI 整理两类内容：AI 资讯、GitHub 热门项目。用户正在看下面的内容，会就它向你提问。',
@@ -666,7 +684,7 @@ function systemPrompt(ctx) {
     '- 给命令要完整、能直接复制，并分清是手机 Termux 还是电脑',
     '- 篇幅跟着问题走，简单问题简短回答',
     web ? '- 你可以联网搜索、读取网页，用来核实或补充最新信息；用到的网上信息要附上链接' : '- 你现在不能联网。问题需要最新信息时，说明你只能依据已有内容，建议用户打开输入框左边的「🌐 联网」再问',
-    profile ? '\n关于提问的人：' + profile : '',
+    profile ? '\n关于提问的人（问「适合我吗」「我需要哪些」时，对照这里：他已经装了、做过、试过不要的就直说，设备装不了的要指出）：\n' + profile : '',
     '',
     '今天是 ' + new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-') + '。',
     '',
@@ -698,6 +716,7 @@ function openAI(item, date) {
   ai.msgs = store.get(chatKey(), []);
   showPanel();
   renderChat();
+  syncProfile(); // 后台先拉一次，提问时多半已经是新的
   if (!store.get('key', '')) showSettings();
 }
 
@@ -739,6 +758,16 @@ function ctxLabel() {
 }
 
 function suggestions() {
+  const mine = store.get('ghToken', '') || store.get('profile', '');
+  const fit = !mine ? null
+    : ai.scope === 'item' ? '对照我的情况，这个我需要吗？已经有类似的了吗？'
+    : ai.scope === 'day' ? (ai.type === 'github' ? '对照我的情况，今天这几个哪些适合我、哪些不用装？' : '对照我的情况，今天哪几条跟我有关？')
+    : '对照我的情况，推荐过的项目里哪些最适合我？按优先级排';
+  const list = baseSuggestions();
+  return fit ? [fit, ...list.slice(0, list.length - 1)] : list;
+}
+
+function baseSuggestions() {
   const gh = ai.type === 'github';
   if (ai.scope === 'item') return gh
     ? ['这个项目到底能帮我干什么？用大白话讲', '在手机 Termux 上装，可能会遇到哪些坑？', '有没有类似的项目？各自有什么区别？', { q: '联网看看这个项目的 README 和最近的更新', web: true }]
@@ -895,6 +924,7 @@ async function answer() {
   renderChat();
 
   try {
+    await syncProfile();
     const ctx = await buildContext();
     const res = await fetch(API + '/chat/completions', {
       method: 'POST',
@@ -1018,6 +1048,17 @@ function showSettings() {
     <textarea id="setProfile" placeholder="例如：自学开发者，主要用安卓手机 Termux 写代码，在做 AI 应用和 Agent，会一点 JS 和 Python">${esc(store.get('profile', ''))}</textarea>
     <div class="row"><button class="btn" data-act="saveprofile">保存</button></div>
     <div class="note" id="profileNote"></div>
+    <p style="margin-top:12px">也可以<b>自动同步</b>：填一个只能读私有仓库 <code>suitaw/me</code> 的 GitHub token，每次提问前会拉最新的「关于我」摘要（30 分钟内拉过就不重复拉），跟上面手写的内容合在一起用。</p>
+    <ol>
+      <li>打开 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a></li>
+      <li>Repository access 选「Only select repositories」→ 只勾 <code>suitaw/me</code></li>
+      <li>Permissions → Contents 选「Read-only」，其他都不动 → 生成后复制</li>
+    </ol>
+    <div class="row">
+      <input id="setGh" type="password" autocomplete="off" placeholder="github_pat_..." value="${esc(store.get('ghToken', ''))}">
+      <button class="btn" data-act="savegh">保存并同步</button>
+    </div>
+    <div class="note" id="ghNote">${store.get('ghToken', '') && store.get('profileSyncAt', 0) ? '上次同步：' + new Date(store.get('profileSyncAt', 0)).toLocaleString('zh-CN') : ''}</div>
 
     <div class="row" style="margin-top:22px"><button class="btn pri" data-act="back">← 回到对话</button></div>`;
 
@@ -1094,6 +1135,15 @@ $('aiSet').addEventListener('click', e => {
     if (ai.models && !ai.models.some(m => m.id === v)) $('modelNote').textContent = '⚠️ OpenRouter 上没有叫 ' + v + ' 的模型，检查一下拼写';
   }
   if (act === 'saveprofile') { store.set('profile', $('setProfile').value.trim()); $('profileNote').textContent = '✅ 已保存'; }
+  if (act === 'savegh') {
+    const t = $('setGh').value.trim();
+    store.set('ghToken', t);
+    if (!t) { store.set('profileSync', ''); $('ghNote').textContent = '已清除，不再同步'; return; }
+    $('ghNote').textContent = '同步中…';
+    syncProfile(true).then(r => {
+      $('ghNote').textContent = r.ok ? `✅ 已同步（${store.get('profileSync', '').length} 字）` : '❌ ' + r.msg;
+    });
+  }
   if (act === 'back') renderChat();
 });
 
