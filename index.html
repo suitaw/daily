@@ -94,7 +94,7 @@ pre{background:var(--code-bg);border-radius:8px;padding:10px 64px 10px 12px;marg
   background:var(--card);color:var(--text);font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,.15);display:none;cursor:pointer}
 
 /* ===== 问 AI ===== */
-.askrow{display:flex;justify-content:flex-end;margin-top:10px}
+.askrow{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:8px;margin-top:10px}
 .ask{border:1px solid var(--line);background:var(--accent-bg);color:var(--accent);border-radius:16px;
   padding:4px 12px;font-size:14px;cursor:pointer;font-family:inherit}
 .aifab{position:fixed;right:16px;bottom:20px;z-index:20;height:48px;padding:0 16px;border-radius:24px;border:0;
@@ -286,7 +286,7 @@ function renderNewsItem(it, i) {
     ${box('explain', '📘', '看不懂？先补点背景', it.explain)}
     ${box('opinion', '💡', '我的看法', it.opinion)}
     ${src ? `<div class="sources">🔗 来源：${src}</div>` : ''}
-    <div class="askrow"><button class="ask" data-i="${i}">🤖 问 AI 这一条</button></div>
+    <div class="askrow"><button class="ask claude" data-t="news" data-i="${i}" data-d="${esc(cur.date)}">✳️ 在 Claude 里问</button><button class="ask" data-i="${i}">🤖 问 AI 这一条</button></div>
   </article>`;
 }
 
@@ -330,7 +330,7 @@ function renderGithubItem(it, i, date = cur.date, n = i + 1, fold = false) {
     ${install}
     ${fold ? '</details>' : ''}
     <div class="sources">🔗 <a href="${esc(url)}" target="_blank" rel="noopener">GitHub 仓库 ↗</a></div>
-    <div class="askrow"><button class="ask" data-i="${i}" data-d="${esc(date)}">🤖 问 AI 这一条</button></div>
+    <div class="askrow"><button class="ask claude" data-t="github" data-i="${i}" data-d="${esc(date)}">✳️ 在 Claude 里问</button><button class="ask" data-i="${i}" data-d="${esc(date)}">🤖 问 AI 这一条</button></div>
   </article>`;
 }
 
@@ -448,11 +448,28 @@ document.getElementById('view').addEventListener('click', e => {
     document.getElementById('item-' + a.dataset.i).scrollIntoView({ behavior: 'smooth' });
     return;
   }
+  const cl = e.target.closest('.claude');
+  if (cl) { askClaude(cl.dataset.t, cl.dataset.d, +cl.dataset.i, cl); return; }
   const ask = e.target.closest('.ask');
   if (ask) { openAI(+ask.dataset.i, ask.dataset.d); return; }
   const btn = e.target.closest('.copy');
   if (btn) copyText(btn.nextElementSibling.textContent, btn);
 });
+
+// 跳到 Claude App（用订阅额度，不花 OpenRouter 的钱）：claude.ai/new?q= 会把问题预填进输入框、不自动发送
+// （非官方参数，10-13 在他手机上实测 App 能接住并预填，1.38 万字符的链接首尾完整）。超过 1.3 万退回短版，全文总是同时复制到剪贴板
+function askClaude(t, d, i, btn) {
+  const it = DAILY_DATA[`${t}/${d}`]?.items?.[i];
+  if (!it) return;
+  const full = fmtItem(t, it, i).replace(/^【第 \d+ 条】/, '');
+  const q = t === 'github'
+    ? '我在「每日速递」看到这个开源项目，帮我看看它能干什么、我用不用得上、在安卓手机 Termux 上能不能装：'
+    : '我在「每日速递」看到这条 AI 新闻，帮我用大白话讲讲是怎么回事、对做 AI 小工具的人有什么影响：';
+  const long = q + '\n\n' + full;
+  const short = q + '\n\n' + (t === 'github' ? it.repo + '：' : '') + it.title + '\n（网站上的完整介绍已复制，粘贴在这下面）\n\n';
+  copyText(full, btn);
+  window.open('https://claude.ai/new?q=' + encodeURIComponent(encodeURIComponent(long).length <= 13000 ? long : short), '_blank');
+}
 
 function copyText(text, btn) {
   const old = btn.textContent;
